@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nugua - Web Developer Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #0b0f17;
+            color: #f1f5f9;
+            overflow-x: hidden;
+            font-family: system-ui, -apple-system, sans-serif;
+            scroll-behavior: smooth;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        html:not(.dark) body {
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+        
+        .mouse-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            background: radial-gradient(800px circle at var(--x, 50%) var(--y, 50%), rgba(117, 147, 255, 0.18), rgba(15, 23, 42, 0) 50%);
+            z-index: 1;
+            transition: background 0.2s ease;
+        }
+
+        html:not(.dark) .mouse-glow {
+            background: radial-gradient(800px circle at var(--x, 50%) var(--y, 50%), rgba(117, 147, 255, 0.25), rgba(248, 250, 252, 0) 50%);
+        }
+
+        .content-layer {
+            position: relative;
+            z-index: 10;
+        }
+
+        .glass-heavy-blur {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        html:not(.dark) .glass-heavy-blur {
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: 0 15px 35px rgba(149, 172, 255, 0.12);
+        }
+
+        .glow-accent-box {
+            box-shadow: 0 15px 35px rgba(117, 147, 255, 0.15), inset 0 0 15px rgba(117, 147, 255, 0.05);
+            border: 1px solid rgba(117, 147, 255, 0.3);
+        }
+
+        html:not(.dark) .glow-accent-box {
+            box-shadow: 0 15px 35px rgba(117, 147, 255, 0.2), inset 0 0 15px rgba(117, 147, 255, 0.08);
+            border: 1px solid rgba(117, 147, 255, 0.4);
+        }
+
+        .soft-button-primary {
+            background: linear-gradient(135deg, #95ACFF 0%, #7593ff 100%);
+            box-shadow: 0 8px 20px rgba(117, 147, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        html:not(.dark) .soft-button-primary {
+            color: #ffffff !important;
+            box-shadow: 0 8px 20px rgba(117, 147, 255, 0.35);
+        }
+
+        .soft-button-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(117, 147, 255, 0.5);
+        }
+
+        .soft-button-secondary {
+            background: rgba(30, 41, 59, 0.8);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        html:not(.dark) .soft-button-secondary {
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 8px 20px rgba(149, 172, 255, 0.15);
+            border: 1px solid rgba(226, 232, 240, 1);
+            color: #475569;
+        }
+
+        .soft-button-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(149, 172, 255, 0.25);
+        }
+
+        .interactive-badge {
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+        }
+        .interactive-badge:hover {
+            transform: translateY(-3px) scale(1.05);
+            background: linear-gradient(135deg, #95ACFF 0%, #7593ff 100%) !important;
+            color: #ffffff !important;
+            box-shadow: 0 8px 20px rgba(117, 147, 255, 0.4);
+            border-color: transparent;
+        }
+        .interactive-badge:hover i {
+            color: #ffffff !important;
+        }
+
+        .scroll-fade-box {
+            opacity: 0;
+            transform: translateY(60px) scale(0.85);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+
+        .scroll-fade-box.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .typing-cursor {
+            display: inline-block;
+            background-color: #7593ff;
+            width: 2px;
+            animation: blink 1s infinite;
+            vertical-align: middle;
+            margin-left: 2px;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        .step-card {
+            opacity: 0;
+            transform: scale(0.85) translateY(25px);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .step-card.active-step {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            border-color: rgba(149, 172, 255, 0.9);
+            box-shadow: 0 15px 30px rgba(149, 172, 255, 0.25);
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            border-color: #7593ff;
+            box-shadow: 0 20px 40px rgba(117, 147, 255, 0.35);
+            background: rgba(30, 41, 59, 0.85);
+        }
+
+        html:not(.dark) .step-card:hover {
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .marquee-container {
+            overflow: hidden;
+            width: 100%;
+            position: relative;
+            display: flex;
+            mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+        }
+
+        .marquee-track {
+            display: flex;
+            gap: 1.25rem;
+            width: max-content;
+            will-change: transform;
+            animation: scrollMarquee 20s linear infinite;
+        }
+
+        .marquee-group {
+            display: flex;
+            gap: 1.25rem;
+            flex-shrink: 0;
+            min-width: max-content;
+        }
+
+        .marquee-track:has(.marquee-card:hover) {
+            animation-play-state: paused;
+        }
+
+        .marquee-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .marquee-card:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 10px 25px rgba(149, 172, 255, 0.35);
+        }
+
+        @keyframes scrollMarquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(var(--marquee-scroll-width)); }
+        }
+
+        .project-card, .testimonial-card {
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .project-card:hover, .testimonial-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(117, 147, 255, 0.3);
+            border-color: rgba(117, 147, 255, 0.8);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between p-3 sm:p-6 md:p-10">
+
+    <div class="mouse-glow" id="mouseGlow"></div>
+
+    <div class="content-layer max-w-6xl mx-auto w-full flex flex-col items-center">
+        
+        <nav class="glass-heavy-blur rounded-full px-3.5 sm:px-5 py-2 w-full max-w-4xl flex items-center justify-between mb-4 sm:mb-8 sticky top-3 sm:top-6 z-50">
+            <a href="#" class="w-8 h-8 sm:w-12 sm:h-12 flex items-center justify-center shrink-0">
+                <img src="assets/img/logo.png" alt="Logo" class="object-contain w-full h-full">
+            </a>
+            
+            <div class="flex items-center space-x-2 sm:space-x-6 text-slate-600 dark:text-slate-300 font-medium text-xs sm:text-sm">
+                <a href="#about" class="hover:text-[#7593ff] transition">About</a>
+                <a href="#skills" class="hover:text-[#7593ff] transition">Skills</a>
+                <a href="#projects" class="hover:text-[#7593ff] transition">Projects</a>
+                <a href="#testimonials" class="hover:text-[#7593ff] transition">Testimonials</a>
+                <a href="#contact" class="hover:text-[#7593ff] transition">Contact</a>
+            </div>
+
+            <div class="flex items-center gap-2 sm:gap-3">
+                <button id="themeToggle" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full glass-heavy-blur flex items-center justify-center text-slate-700 dark:text-slate-200 hover:text-[#7593ff] transition shadow-sm cursor-pointer" title="Toggle Theme">
+                    <i class="fa-solid fa-moon text-xs sm:text-sm hidden dark:block"></i>
+                    <i class="fa-solid fa-sun text-xs sm:text-sm dark:hidden"></i>
+                </button>
+
+                <div class="hidden sm:flex items-center">
+                    <a href="#contact" class="soft-button-secondary px-5 py-2 rounded-full text-sm font-semibold text-[#7593ff] flex items-center gap-2">
+                        <i class="fa-regular fa-comment-dots"></i> Contact Me
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <main class="text-center max-w-4xl mx-auto flex flex-col items-center my-2 sm:my-6">
+            <div class="glass-heavy-blur px-4 py-1.5 rounded-full text-[11px] md:text-sm font-medium text-slate-700 dark:text-slate-300 mb-4 sm:mb-6 flex items-center gap-2">
+                <i class="fa-solid fa-wand-magic-sparkles text-[#7593ff]"></i> Hello, I'm Nugua – Welcome to my digital space
+            </div>
+
+            <h1 class="text-2xl sm:text-5xl md:text-6xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight leading-tight mb-3 sm:mb-6">
+                Crafting Modern and Scalable Web Solutions
+            </h1>
+
+            <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-base md:text-lg max-w-2xl mb-6 sm:mb-8 leading-relaxed">
+                Transforming ideas into clean, responsive, and user-friendly web applications to help businesses grow online.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
+                <a href="#projects" class="soft-button-primary text-white font-medium px-6 py-2.5 sm:px-7 sm:py-3 rounded-full text-xs sm:text-base w-full sm:w-auto text-center flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-code"></i> Explore My Work
+                </a>
+                <a href="#contact" class="soft-button-secondary text-slate-700 dark:text-slate-200 font-medium px-6 py-2.5 sm:px-7 sm:py-3 rounded-full text-xs sm:text-base w-full sm:w-auto text-center flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-paper-plane"></i> Let's Connect
+                </a>
+            </div>
+        </main>
+
+        <!-- ABOUT SECTION -->
+        <section id="about" class="w-full max-w-5xl my-10 sm:my-16">
+            <div class="scroll-fade-box glass-heavy-blur glow-accent-box p-5 sm:p-10 rounded-3xl mb-8 sm:mb-10" id="aboutCard">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+                    <div class="flex justify-center">
+                        <div class="w-36 h-36 sm:w-48 sm:h-48 rounded-full overflow-hidden border-4 border-[#7593ff]/50 shadow-[0_0_25px_rgba(117,147,255,0.3)] bg-slate-200 dark:bg-slate-800">
+                            <img src="assets/img/profile.JPG" alt="Nugua Profile" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                    <div class="md:col-span-2 text-center md:text-left">
+                        <h2 class="text-lg sm:text-2xl font-bold text-slate-900 dark:text-slate-100 mb-3 flex items-center justify-center md:justify-start gap-3">
+                            <i class="fa-solid fa-user-gear text-[#7593ff]"></i> Behind the Code
+                        </h2>
+                        <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-xs sm:text-base mb-4 sm:mb-5 min-h-[72px] sm:min-h-[80px]" id="aboutTypingText"></p>
+                        
+                        <div class="flex flex-wrap justify-center md:justify-start gap-2">
+                            <span class="interactive-badge px-3.5 py-1.5 rounded-full bg-slate-200/80 dark:bg-slate-800/80 text-[10px] sm:text-[11px] font-semibold text-slate-700 dark:text-[#95ACFF] shadow-sm flex items-center gap-1.5 border border-slate-300 dark:border-white/5">
+                                <i class="fa-solid fa-puzzle-piece"></i> Problem Solver
+                            </span>
+                            <span class="interactive-badge px-3.5 py-1.5 rounded-full bg-slate-200/80 dark:bg-slate-800/80 text-[10px] sm:text-[11px] font-semibold text-slate-700 dark:text-[#95ACFF] shadow-sm flex items-center gap-1.5 border border-slate-300 dark:border-white/5">
+                                <i class="fa-solid fa-bullseye"></i> Detail Oriented
+                            </span>
+                            <span class="interactive-badge px-3.5 py-1.5 rounded-full bg-slate-200/80 dark:bg-slate-800/80 text-[10px] sm:text-[11px] font-semibold text-slate-700 dark:text-[#95ACFF] shadow-sm flex items-center gap-1.5 border border-slate-300 dark:border-white/5">
+                                <i class="fa-solid fa-bolt"></i> Fast Learner
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="scroll-fade-box text-center mb-6 sm:mb-8">
+                <h3 class="text-base sm:text-xl font-bold text-slate-900 dark:text-slate-100 mb-1">How I Bring Ideas to Life</h3>
+                <p class="text-slate-500 dark:text-slate-400 text-[11px] sm:text-sm">Scroll down or hover on cards to explore.</p>
+            </div>
+
+            <!-- STEP CONTAINER (Rendered via data.js - Ganjil Kiri, Genap Kanan dengan Jalur SVG Silang yang Benar) -->
+            <div class="scroll-fade-box relative w-full py-4 flex flex-col gap-6 sm:gap-8" id="stepContainer">
+                <svg class="absolute inset-0 w-full h-full pointer-events-none z-0" preserveAspectRatio="none" viewBox="0 0 1000 600">
+                    <path class="sm:block" d="M 220,60 C 220,130 780,130 780,200 C 780,270 220,270 220,340 C 220,410 780,410 780,480" fill="none" stroke="rgba(117, 147, 255, 0.3)" stroke-width="4" stroke-dasharray="8 8"/>
+                    <path id="progressSvgPath" d="M 220,60 C 220,130 780,130 780,200 C 780,270 220,270 220,340 C 220,410 780,410 780,480" fill="none" stroke="url(#lineGradient)" stroke-width="5" stroke-dasharray="1400" stroke-dashoffset="1400"/>
+                    <defs>
+                        <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#95ACFF" />
+                            <stop offset="100%" stop-color="#7593ff" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+        </section>
+
+        <!-- SKILLS SECTION -->
+        <section id="skills" class="scroll-fade-box w-full max-w-6xl my-12 sm:my-16 text-center">
+            <h2 class="text-lg sm:text-2xl md:text-3xl font-bold text-slate-900 dark:text-slate-100 mb-6 sm:mb-8">Core Technologies</h2>
+            
+            <div class="marquee-container py-6 sm:py-8" id="marqueeContainer">
+                <div class="marquee-track" id="marqueeTrack">
+                    <div class="marquee-group" id="marqueeGroup1">
+                        <div class="marquee-card glass-heavy-blur px-4 py-2.5 sm:px-5 sm:py-3.5 rounded-xl sm:rounded-2xl flex items-center gap-3 min-w-[130px] sm:min-w-[150px] shrink-0 shadow-sm justify-center cursor-pointer">
+                            <i class="fa-brands fa-html5 text-orange-500 text-base sm:text-xl"></i>
+                            <span class="font-semibold text-slate-700 dark:text-slate-200 text-xs sm:text-sm">HTML / CSS</span>
+                        </div>
+                        <div class="marquee-card glass-heavy-blur px-4 py-2.5 sm:px-5 sm:py-3.5 rounded-xl sm:rounded-2xl flex items-center gap-3 min-w-[130px] sm:min-w-[150px] shrink-0 shadow-sm justify-center cursor-pointer">
+                            <i class="fa-brands fa-js text-yellow-500 text-base sm:text-xl"></i>
+                            <span class="font-semibold text-slate-700 dark:text-slate-200 text-xs sm:text-sm">JavaScript</span>
+                        </div>
+                        <div class="marquee-card glass-heavy-blur px-4 py-2.5 sm:px-5 sm:py-3.5 rounded-xl sm:rounded-2xl flex items-center gap-3 min-w-[130px] sm:min-w-[150px] shrink-0 shadow-sm justify-center cursor-pointer">
+                            <i class="fa-solid fa-wind text-sky-400 text-base sm:text-xl"></i>
+                            <span class="font-semibold text-slate-700 dark:text-slate-200 text-xs sm:text-sm">Tailwind</span>
+                        </div>
+                        <div class="marquee-card glass-heavy-blur px-4 py-2.5 sm:px-5 sm:py-3.5 rounded-xl sm:rounded-2xl flex items-center gap-3 min-w-[130px] sm:min-w-[150px] shrink-0 shadow-sm justify-center cursor-pointer">
+                            <i class="fa-brands fa-laravel text-red-500 text-base sm:text-xl"></i>
+                            <span class="font-semibold text-slate-700 dark:text-slate-200 text-xs sm:text-sm">Laravel</span>
+                        </div>
+                        <div class="marquee-card glass-heavy-blur px-4 py-2.5 sm:px-5 sm:py-3.5 rounded-xl sm:rounded-2xl flex items-center gap-3 min-w-[130px] sm:min-w-[150px] shrink-0 shadow-sm justify-center cursor-pointer">
+                            <i class="fa-brands fa-php text-indigo-400 text-base sm:text-xl"></i>
+                            <span class="font-semibold text-slate-700 dark:text-slate-200 text-xs sm:text-sm">PHP</span>
+                        </div>
+                        <div class="marquee-card glass-heavy-blur px-4 py-2.5 sm:px-5 sm:py-3.5 rounded-xl sm:rounded-2xl flex items-center gap-3 min-w-[130px] sm:min-w-[150px] shrink-0 shadow-sm justify-center cursor-pointer">
+                            <i class="fa-solid fa-database text-blue-400 text-base sm:text-xl"></i>
+                            <span class="font-semibold text-slate-700 dark:text-slate-200 text-xs sm:text-sm">MySQL</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROJECTS SECTION -->
+        <section id="projects" class="scroll-fade-box w-full max-w-4xl my-12 sm:my-20">
+            <h2 class="text-lg sm:text-2xl md:text-3xl font-bold text-slate-900 dark:text-slate-100 mb-8 text-center flex items-center justify-center gap-3">
+                <i class="fa-solid fa-diagram-project text-[#7593ff]"></i> Featured Projects
+            </h2>
+
+            <!-- PROJECTS GRID (Centered if 1, Grid if 2+) -->
+            <div id="projectsGrid"></div>
+
+            <div class="flex justify-center mt-10">
+                <a href="project.html" class="soft-button-secondary text-slate-700 dark:text-slate-200 font-bold px-8 py-3 rounded-full text-xs sm:text-sm flex items-center gap-3 group transition">
+                    View All Projects <i class="fa-solid fa-arrow-right group-hover:translate-x-1.5 transition-transform text-[#7593ff]"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- TESTIMONIALS SECTION -->
+        <section id="testimonials" class="scroll-fade-box w-full max-w-4xl my-12 sm:my-16">
+            <h2 class="text-lg sm:text-2xl md:text-3xl font-bold text-slate-900 dark:text-slate-100 mb-8 text-center flex items-center justify-center gap-3">
+                <i class="fa-solid fa-quote-left text-[#7593ff]"></i> What Clients Say
+            </h2>
+
+            <!-- TESTIMONIALS GRID (Centered if 1, Grid if 2+) -->
+            <div id="testimonialsGrid"></div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section id="contact" class="scroll-fade-box w-full max-w-2xl my-10 sm:my-16 text-center">
+            <div class="glass-heavy-blur glow-accent-box p-5 sm:p-10 rounded-3xl">
+                <h2 class="text-lg sm:text-2xl md:text-3xl font-bold text-slate-900 dark:text-slate-100 mb-3 flex items-center justify-center gap-3">
+                    <i class="fa-solid fa-envelope-open-text text-[#7593ff]"></i> Let's Work Together
+                </h2>
+                <p class="text-slate-600 dark:text-slate-300 mb-6 text-xs sm:text-base">Have a project in mind or want to discuss digital solutions for your business? Feel free to reach out!</p>
+                <a href="mailto:nugua@example.com" class="soft-button-primary text-white font-medium px-6 py-2.5 sm:px-7 sm:py-3 rounded-full inline-block text-xs sm:text-base">
+                    <i class="fa-solid fa-paper-plane mr-2"></i> Send Me an Email
+                </a>
+            </div>
+        </section>
+
+    </div>
+
+    <footer class="content-layer w-full text-center py-6 text-slate-500 dark:text-slate-400 text-[11px] sm:text-sm border-t border-slate-300 dark:border-slate-800 mt-6 sm:mt-8 flex flex-col items-center gap-2">
+        <p>&copy; 2026 Nugua. All rights reserved. Built with passion & modern web technologies.</p>
+        <div class="flex items-center gap-4 text-slate-500 mt-1">
+            <a href="#" class="hover:text-[#7593ff] transition"><i class="fa-brands fa-github text-base sm:text-lg"></i></a>
+            <a href="#" class="hover:text-[#7593ff] transition"><i class="fa-brands fa-linkedin text-base sm:text-lg"></i></a>
+            <a href="#" class="hover:text-[#7593ff] transition"><i class="fa-brands fa-instagram text-base sm:text-lg"></i></a>
+        </div>
+    </footer>
+
+    <!-- PANGGIL FILE DATA.JS TERLEBIH DAHULU -->
+    <script src="data.js"></script>
+
+    <script>
+        // SCRIPT RENDER DARI DATA.JS KE HTML
+        document.addEventListener("DOMContentLoaded", () => {
+            // 1. Render Steps (Ganjil di Kiri, Genap di Kanan)
+            const stepContainer = document.getElementById('stepContainer');
+            if (stepContainer && typeof stepsData !== 'undefined') {
+                stepsData.forEach((item, index) => {
+                    const alignmentClass = index % 2 === 0 ? 'justify-start pl-2 sm:pl-0' : 'justify-end pr-2 sm:pr-0';
+                    const stepHTML = `
+                        <div class="w-full flex ${alignmentClass} relative z-10">
+                            <div class="step-card glass-heavy-blur p-4 sm:p-5 rounded-2xl w-[90%] sm:w-[42%] cursor-pointer" data-step="${item.step}" data-threshold="${item.threshold}">
+                                <span class="absolute -top-2.5 -left-2.5 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#7593ff] text-white font-bold flex items-center justify-center text-[11px] sm:text-xs shadow-md">0${item.step}</span>
+                                <div class="flex items-center gap-3 mb-2">
+                                    <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-slate-200 dark:bg-slate-800/80 shadow-sm flex items-center justify-center text-[#7593ff] text-xs sm:text-base">
+                                        <i class="${item.icon}"></i>
+                                    </div>
+                                    <h4 class="font-bold text-slate-900 dark:text-slate-100 text-xs sm:text-base">${item.title}</h4>
+                                </div>
+                                <p class="text-slate-600 dark:text-slate-300 text-[11px] sm:text-xs leading-relaxed">${item.description}</p>
+                            </div>
+                        </div>
+                    `;
+                    stepContainer.insertAdjacentHTML('beforeend', stepHTML);
+                });
+            }
+
+            // 2. Render Projects (Automatic Center if 1 data, Grid if 2+)
+            const projectsGrid = document.getElementById('projectsGrid');
+            if (projectsGrid && typeof futureProjectsData !== 'undefined') {
+                if (futureProjectsData.length === 1) {
+                    projectsGrid.className = "flex justify-center";
+                } else {
+                    projectsGrid.className = "grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6";
+                }
+
+                futureProjectsData.forEach(project => {
+                    const cardWidthClass = futureProjectsData.length === 1 ? "w-full max-w-md" : "w-full";
+                    
+                    const projectHTML = `
+                        <div class="project-card glass-heavy-blur p-4 sm:p-6 rounded-3xl flex flex-col justify-between ${cardWidthClass}">
+                            <div>
+                                <div class="w-full h-32 sm:h-40 bg-slate-200 dark:bg-slate-800/50 border border-slate-300 dark:border-slate-700 rounded-2xl mb-3 sm:mb-4 overflow-hidden flex items-center justify-center text-slate-400 dark:text-slate-500 text-xs sm:text-sm font-medium gap-2">
+                                    <i class="fa-regular fa-image"></i> ${project.previewText}
+                                </div>
+                                <div class="flex items-center justify-between mb-2">
+                                    <h3 class="text-base sm:text-xl font-bold text-slate-900 dark:text-slate-100">${project.title}</h3>
+                                    <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#7593ff]/20 text-[#7593ff]">${project.category}</span>
+                                </div>
+                                <p class="text-slate-600 dark:text-slate-300 text-[11px] sm:text-sm mb-5">${project.description}</p>
+                            </div>
+                            <button class="soft-button-primary text-white font-semibold text-xs sm:text-sm py-2.5 px-4 rounded-xl w-full flex items-center justify-center gap-2 cursor-pointer">
+                                View Project <i class="fa-solid fa-arrow-right text-xs"></i>
+                            </button>
+                        </div>
+                    `;
+                    projectsGrid.insertAdjacentHTML('beforeend', projectHTML);
+                });
+            }
+
+            // 3. Render Testimonials (Automatic Center if 1 data, Grid if 2+)
+            const testimonialsGrid = document.getElementById('testimonialsGrid');
+            if (testimonialsGrid && typeof testimonialsData !== 'undefined') {
+                if (testimonialsData.length === 1) {
+                    testimonialsGrid.className = "flex justify-center";
+                } else {
+                    testimonialsGrid.className = "grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6";
+                }
+
+                testimonialsData.forEach(testi => {
+                    const cardWidthClass = testimonialsData.length === 1 ? "w-full max-w-md" : "w-full";
+
+                    const testiHTML = `
+                        <div class="testimonial-card glass-heavy-blur p-5 sm:p-6 rounded-3xl flex flex-col justify-between ${cardWidthClass}">
+                            <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm italic mb-4">${testi.quote}</p>
+                            <div class="flex items-center gap-3">
+                                <div class="w-9 h-9 rounded-full bg-[#7593ff]/20 text-[#7593ff] font-bold flex items-center justify-center text-xs">
+                                    ${testi.initials}
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-xs sm:text-sm text-slate-900 dark:text-slate-100">${testi.name}</h4>
+                                    <span class="text-[10px] text-slate-500">${testi.role}</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    testimonialsGrid.insertAdjacentHTML('beforeend', testiHTML);
+                });
+            }
+        });
+
+        const themeToggleBtn = document.getElementById('themeToggle');
+        
+        if (localStorage.getItem('color-theme') === 'light') {
+            document.documentElement.classList.remove('dark');
+        } else {
+            document.documentElement.classList.add('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('color-theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('color-theme', 'dark');
+            }
+        });
+
+        const glow = document.getElementById('mouseGlow');
+        const stepContainer = document.getElementById('stepContainer');
+        const progressSvgPath = document.getElementById('progressSvgPath');
+
+        let mouseX = 0;
+        let mouseY = 0;
+        let glowX = 0;
+        let glowY = 0;
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function updateGlow() {
+            glowX += (mouseX - glowX) * 0.15;
+            glowY += (mouseY - glowY) * 0.15;
+
+            if (glow) {
+                glow.style.setProperty('--x', `${glowX}px`);
+                glow.style.setProperty('--y', `${glowY}px`);
+            }
+
+            requestAnimationFrame(updateGlow);
+        }
+
+        requestAnimationFrame(updateGlow);
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const track = document.getElementById('marqueeTrack');
+            const group1 = document.getElementById('marqueeGroup1');
+            
+            if (track && group1) {
+                for (let i = 0; i < 3; i++) {
+                    const clone = group1.cloneNode(true);
+                    clone.setAttribute('aria-hidden', 'true');
+                    track.appendChild(clone);
+                }
+
+                const groupWidth = group1.offsetWidth + 20;
+                track.style.setProperty('--marquee-scroll-width', `-${groupWidth}px`);
+            }
+        });
+
+        const pathLength = progressSvgPath ? progressSvgPath.getTotalLength() : 1400;
+        if (progressSvgPath) {
+            progressSvgPath.style.strokeDasharray = pathLength;
+            progressSvgPath.style.strokeDashoffset = pathLength;
+        }
+
+        const aboutCard = document.getElementById('aboutCard');
+        const aboutTypingText = document.getElementById('aboutTypingText');
+        const aboutMessage = "I am a passionate web developer dedicated to bridging complex technical systems with seamless, user-friendly digital experiences. Whether collaborating with UMKM or scaling business applications, I ensure every line of code serves a purpose.";
+        
+        let isTypingStarted = false;
+        let typingTimeout = null;
+
+        function startTypingEffect() {
+            if (isTypingStarted) return;
+            isTypingStarted = true;
+            
+            let charIndex = 0;
+            aboutTypingText.innerHTML = '';
+            
+            const cursorSpan = document.createElement('span');
+            cursorSpan.className = 'typing-cursor';
+            cursorSpan.style.height = '1em';
+            aboutTypingText.appendChild(cursorSpan);
+
+            function typeChar() {
+                if (charIndex < aboutMessage.length) {
+                    const textNode = document.createTextNode(aboutMessage.charAt(charIndex));
+                    aboutTypingText.insertBefore(textNode, cursorSpan);
+                    charIndex++;
+                    typingTimeout = setTimeout(typeChar, 20);
+                } else {
+                    setTimeout(() => {
+                        cursorSpan.remove();
+                    }, 1000);
+                }
+            }
+            typeChar();
+        }
+
+        const scrollFadeBoxes = document.querySelectorAll('.scroll-fade-box');
+
+        function checkScrollAnimations() {
+            const windowH = window.innerHeight;
+
+            scrollFadeBoxes.forEach((box) => {
+                const rect = box.getBoundingClientRect();
+                
+                if (rect.top < windowH - 80 && rect.bottom > 80) {
+                    box.classList.add('visible');
+                    
+                    if (box.id === 'aboutCard') {
+                        startTypingEffect();
+                    }
+                } else {
+                    box.classList.remove('visible');
+                }
+            });
+
+            if (stepContainer) {
+                const stepCards = document.querySelectorAll('.step-card');
+                const rect = stepContainer.getBoundingClientRect();
+                let totalHeight = stepContainer.offsetHeight;
+                let currentScrollPosition = windowH - rect.top;
+                let scrollProgress = currentScrollPosition / (totalHeight + windowH * 0.1);
+                
+                scrollProgress = Math.max(0, Math.min(1, scrollProgress));
+
+                if (progressSvgPath) {
+                    let drawLength = pathLength * (1 - scrollProgress);
+                    progressSvgPath.style.strokeDashoffset = Math.max(0, drawLength);
+                }
+
+                stepCards.forEach((card) => {
+                    let threshold = parseFloat(card.getAttribute('data-threshold'));
+                    if (scrollProgress >= threshold) {
+                        card.classList.add('active-step');
+                    } else {
+                        card.classList.remove('active-step');
+                    }
+                });
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', checkScrollAnimations);
+        window.addEventListener('scroll', checkScrollAnimations, { passive: true });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Projects - Nugua Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+    <!-- FontAwesome untuk Icon profesional -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #0b0f17;
+            color: #f1f5f9;
+            overflow-x: hidden;
+            font-family: system-ui, -apple-system, sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        html:not(.dark) body {
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+        
+        /* Efek Mouse Tracking Glow Background */
+        .mouse-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            background: radial-gradient(800px circle at var(--x, 50%) var(--y, 50%), rgba(117, 147, 255, 0.18), rgba(15, 23, 42, 0) 50%);
+            z-index: 1;
+            transition: background 0.2s ease;
+        }
+
+        html:not(.dark) .mouse-glow {
+            background: radial-gradient(800px circle at var(--x, 50%) var(--y, 50%), rgba(117, 147, 255, 0.25), rgba(248, 250, 252, 0) 50%);
+        }
+
+        .content-layer {
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Glassmorphism */
+        .glass-heavy-blur {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        html:not(.dark) .glass-heavy-blur {
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: 0 15px 35px rgba(149, 172, 255, 0.12);
+        }
+
+        .soft-button-primary {
+            background: linear-gradient(135deg, #95ACFF 0%, #7593ff 100%);
+            box-shadow: 0 8px 20px rgba(117, 147, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .soft-button-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(117, 147, 255, 0.5);
+        }
+
+        .soft-button-secondary {
+            background: rgba(30, 41, 59, 0.8);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        html:not(.dark) .soft-button-secondary {
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 8px 20px rgba(149, 172, 255, 0.15);
+            border: 1px solid rgba(226, 232, 240, 1);
+            color: #475569;
+        }
+
+        .soft-button-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(149, 172, 255, 0.25);
+        }
+
+        .contact-pill-btn {
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        html:not(.dark) .contact-pill-btn {
+            background: rgba(241, 245, 249, 0.8);
+            border: 1px solid rgba(226, 232, 240, 1);
+        }
+
+        .contact-pill-btn:hover {
+            border-color: rgba(117, 147, 255, 0.5);
+            transform: translateY(-1px);
+        }
+
+        .project-card {
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .project-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(117, 147, 255, 0.3);
+            border-color: rgba(117, 147, 255, 0.8);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between p-3 sm:p-6 md:p-10">
+
+    <!-- Elemen Mouse Glow -->
+    <div class="mouse-glow" id="mouseGlow"></div>
+
+    <div class="content-layer max-w-6xl mx-auto w-full flex flex-col items-center">
+        
+        <!-- NAVBAR -->
+        <nav class="glass-heavy-blur rounded-full px-4 sm:px-5 py-2.5 w-full max-w-4xl flex items-center justify-between mb-8 sticky top-3 sm:top-6 z-50">
+            <a href="index.html" class="w-9 h-9 sm:w-11 sm:h-11 overflow-hidden flex items-center justify-center shrink-0 transition-transform hover:scale-105">
+                <img src="assets/img/logo.png" alt="Logo" class="object-cover w-full h-full">
+            </a>
+            
+            <div class="absolute left-1/2 transform -translate-x-1/2 hidden sm:block">
+                <span class="text-xs sm:text-sm font-extrabold tracking-widest text-slate-900 dark:text-white uppercase">PROJECTS</span>
+            </div>
+
+            <div class="flex items-center gap-2">
+                <a href="index.html#contact" class="contact-pill-btn flex items-center gap-2 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold text-[#7593ff] dark:text-[#95ACFF]">
+                    <i class="fa-solid fa-comment-dots text-xs"></i>
+                    <span>Contact Me</span>
+                </a>
+
+                <button id="themeToggle" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full glass-heavy-blur flex items-center justify-center text-slate-700 dark:text-slate-200 hover:text-[#7593ff] transition shadow-sm cursor-pointer" title="Toggle Theme">
+                    <i class="fa-solid fa-moon text-xs sm:text-sm hidden dark:block"></i>
+                    <i class="fa-solid fa-sun text-xs sm:text-sm dark:hidden"></i>
+                </button>
+            </div>
+        </nav>
+
+        <!-- HEADER SECTION -->
+        <header class="text-center max-w-3xl mx-auto my-6">
+            <h1 class="text-2xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight mb-3">
+                All Projects & Experiments
+            </h1>
+            <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-base leading-relaxed">
+                Koleksi lengkap dari proyek serius, aplikasi komersial, hingga proyek gabut / eksperimen iseng yang saya buat di waktu luang.
+            </p>
+        </header>
+
+        <!-- GITHUB CONTRIBUTION ACTIVITY -->
+        <section class="w-full max-w-4xl my-6 px-2">
+            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100 mb-4 flex items-center gap-2.5">
+                <i class="fa-brands fa-github text-[#7593ff] text-lg sm:text-xl"></i> My GitHub Contribution Activity
+            </h3>
+            <div class="glass-heavy-blur p-4 sm:p-6 rounded-3xl overflow-x-auto flex flex-col items-center">
+                <img src="https://ghchart.rshah.org/4169E1/nuguaaa" alt="Nugua's Github Contribution Chart" class="w-full max-w-3xl h-auto block filter dark:brightness-125 mb-3">
+                
+                <div class="w-full max-w-3xl flex items-center justify-end gap-2 text-[11px] text-slate-500 dark:text-slate-400 mt-2 px-1">
+                    <span>Less</span>
+                    <div class="flex items-center gap-1">
+                        <span class="w-2.5 h-2.5 rounded-[2px] bg-slate-200 dark:bg-slate-800 border border-slate-300 dark:border-slate-700"></span>
+                        <span class="w-2.5 h-2.5 rounded-[2px] bg-[#7593ff]/30"></span>
+                        <span class="w-2.5 h-2.5 rounded-[2px] bg-[#7593ff]/60"></span>
+                        <span class="w-2.5 h-2.5 rounded-[2px] bg-[#7593ff]"></span>
+                        <span class="w-2.5 h-2.5 rounded-[2px] bg-[#4169E1]"></span>
+                    </div>
+                    <span>More</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- GRID ALL PROJECTS & FUN PROJECTS -->
+        <section class="w-full max-w-4xl my-6">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
+                <div>
+                    <h2 class="text-base sm:text-xl font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+                        <i class="fa-solid fa-code-branch text-[#7593ff]"></i> Project List
+                    </h2>
+                    <span class="text-xs text-slate-500 dark:text-slate-400">Showing projects</span>
+                </div>
+
+                <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+                    <div class="relative flex-1 sm:flex-initial">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400 text-xs">
+                            <i class="fa-solid fa-search"></i>
+                        </span>
+                        <input type="text" id="projectSearch" placeholder="Search projects..." class="w-full sm:w-48 pl-8 pr-3 py-1.5 text-xs rounded-xl glass-heavy-blur text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-[#7593ff]/50 border border-slate-300 dark:border-slate-700">
+                    </div>
+
+                    <div class="flex items-center gap-1.5">
+                        <button onclick="filterProjects('all', event)" class="category-btn px-3 py-1.5 rounded-xl text-xs font-semibold soft-button-primary text-white transition cursor-pointer">All</button>
+                        <button onclick="filterProjects('professional', event)" class="category-btn px-3 py-1.5 rounded-xl text-xs font-semibold soft-button-secondary text-slate-700 dark:text-slate-200 transition cursor-pointer">Professional</button>
+                        <button onclick="filterProjects('fun', event)" class="category-btn px-3 py-1.5 rounded-xl text-xs font-semibold soft-button-secondary text-slate-700 dark:text-slate-200 transition cursor-pointer">Fun</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTAINER PROJECT CARDS -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6" id="projectContainer">
+                <!-- Dirender otomatis lewat JS -->
+            </div>
+
+            <div class="flex justify-center mt-10">
+                <a href="index.html" class="soft-button-secondary text-slate-700 dark:text-slate-200 font-bold px-8 py-3 rounded-full text-xs sm:text-sm flex items-center gap-3 group transition">
+                    <i class="fa-solid fa-arrow-left group-hover:-translate-x-1.5 transition-transform text-[#7593ff]"></i> Back to Home
+                </a>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="content-layer w-full text-center py-6 text-slate-500 dark:text-slate-400 text-[11px] sm:text-sm border-t border-slate-300 dark:border-slate-800 mt-8 flex flex-col items-center gap-2">
+        <p>&copy; 2026 Nugua. All rights reserved.</p>
+    </footer>
+
+    <!-- 1. PANGGIL FILE DATA PROJECT TERLEBIH DAHULU -->
+    <script src="data.js"></script>
+
+    <!-- 2. SCRIPT UTAMA HALAMAN -->
+    <script>
+        const container = document.getElementById('projectContainer');
+        let currentCategory = 'all';
+
+        function renderProjects(filter = 'all', searchQuery = '') {
+            container.innerHTML = '';
+
+            const filtered = projectsData.filter(project => {
+                const matchesCategory = (filter === 'all' || project.category === filter);
+                const matchesSearch = project.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                                      project.description.toLowerCase().includes(searchQuery.toLowerCase());
+                return matchesCategory && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full text-center py-10 text-slate-400 text-xs sm:text-sm">
+                        <i class="fa-solid fa-folder-open text-2xl mb-2 block"></i>
+                        Tidak ada project yang ditemukan.
+                    </div>
+                `;
+                return;
+            }
+
+            filtered.forEach(project => {
+                const borderStyle = project.isDashedBorder ? 'border-dashed border-[#7593ff]/40' : '';
+                
+                const cardHTML = `
+                    <div class="project-card glass-heavy-blur p-4 sm:p-6 rounded-3xl flex flex-col justify-between ${borderStyle}" data-category="${project.category}" data-title="${project.title.toLowerCase()}">
+                        <div>
+                            <div class="w-full h-32 sm:h-36 bg-slate-200 dark:bg-slate-800/50 border border-slate-300 dark:border-slate-700 rounded-2xl mb-3 sm:mb-4 overflow-hidden flex items-center justify-center text-slate-400 dark:text-slate-500 text-xs sm:text-sm font-medium gap-2">
+                                <i class="${project.previewIcon}"></i> ${project.previewLabel}
+                            </div>
+                            <div class="flex items-center justify-between mb-2">
+                                <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100">${project.title}</h3>
+                                <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full ${project.badgeColorClass}">${project.badgeText}</span>
+                            </div>
+                            <p class="text-slate-600 dark:text-slate-300 text-[11px] sm:text-sm mb-5">${project.description}</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <a href="${project.githubUrl}" target="_blank" class="soft-button-secondary text-slate-700 dark:text-slate-200 font-semibold text-xs py-2 px-3 rounded-xl flex-1 text-center">
+                                <i class="fa-brands fa-github mr-1"></i> Code
+                            </a>
+                            <a href="${project.liveUrl}" target="_blank" class="soft-button-primary text-white font-semibold text-xs py-2 px-3 rounded-xl flex-1 text-center">
+                                <i class="fa-solid fa-external-link-alt mr-1"></i> Live Demo
+                            </a>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += cardHTML;
+            });
+        }
+
+        function filterProjects(category, event) {
+            currentCategory = category;
+            
+            const buttons = document.querySelectorAll('.category-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('soft-button-primary', 'text-white');
+                btn.classList.add('soft-button-secondary', 'text-slate-700', 'dark:text-slate-200');
+            });
+            
+            if (event && event.currentTarget) {
+                event.currentTarget.classList.remove('soft-button-secondary', 'text-slate-700', 'dark:text-slate-200');
+                event.currentTarget.classList.add('soft-button-primary', 'text-white');
+            }
+
+            const query = document.getElementById('projectSearch').value;
+            renderProjects(currentCategory, query);
+        }
+
+        const searchInput = document.getElementById('projectSearch');
+        searchInput.addEventListener('input', (e) => {
+            renderProjects(currentCategory, e.target.value);
+        });
+
+        // Load awal saat halaman dibuka
+        renderProjects();
+
+        // Theme Toggle & Glow Script
+        const themeToggleBtn = document.getElementById('themeToggle');
+        if (localStorage.getItem('color-theme') === 'light') {
+            document.documentElement.classList.remove('dark');
+        } else {
+            document.documentElement.classList.add('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('color-theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('color-theme', 'dark');
+            }
+        });
+
+        const glow = document.getElementById('mouseGlow');
+        let mouseX = 0, mouseY = 0, glowX = 0, glowY = 0;
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function updateGlow() {
+            glowX += (mouseX - glowX) * 0.15;
+            glowY += (mouseY - glowY) * 0.15;
+            if (glow) {
+                glow.style.setProperty('--x', `${glowX}px`);
+                glow.style.setProperty('--y', `${glowY}px`);
+            }
+            requestAnimationFrame(updateGlow);
+        }
+        requestAnimationFrame(updateGlow);
+    </script>
+</body>
+</html>
