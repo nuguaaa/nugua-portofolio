@@ -259,6 +259,16 @@
             filtered.forEach(project => {
                 const borderStyle = project.isDashedBorder ? 'border-dashed border-[#7593ff]/40' : '';
                 
+                // Render tech stack icons secara dinamis jika properti techs tersedia
+                let techsHTML = '';
+                if (project.techs && Array.isArray(project.techs)) {
+                    techsHTML = `<div class="flex items-center gap-2.5 mb-4 text-sm text-slate-600 dark:text-slate-300">`;
+                    project.techs.forEach(tech => {
+                        techsHTML += `<i class="${tech.icon}" title="${tech.name}"></i>`;
+                    });
+                    techsHTML += `</div>`;
+                }
+
                 const cardHTML = `
                     <div class="project-card glass-heavy-blur p-4 sm:p-6 rounded-3xl flex flex-col justify-between ${borderStyle}" data-category="${project.category}" data-title="${project.title.toLowerCase()}">
                         <div>
@@ -269,7 +279,8 @@
                                 <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100">${project.title}</h3>
                                 <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full ${project.badgeColorClass}">${project.badgeText}</span>
                             </div>
-                            <p class="text-slate-600 dark:text-slate-300 text-[11px] sm:text-sm mb-5">${project.description}</p>
+                            <p class="text-slate-600 dark:text-slate-300 text-[11px] sm:text-sm mb-3">${project.description}</p>
+                            ${techsHTML}
                         </div>
                         <div class="flex items-center gap-2">
                             <a href="${project.githubUrl}" target="_blank" class="soft-button-secondary text-slate-700 dark:text-slate-200 font-semibold text-xs py-2 px-3 rounded-xl flex-1 text-center">

@@ -1,17 +1,23 @@
 // projects-data.js
 const projectsData = [
     {
-        title: "UMKM Digital Store",
+        title: "E-Commerce UMKM",
         category: "professional",
-        badgeText: "E-Commerce",
+        description: "Aplikasi toko online lengkap dengan manajemen keranjang dan integrasi payment gateway.",
+        previewIcon: "fa-solid fa-store",
+        previewLabel: "E-Commerce App",
+        badgeText: "Professional",
         badgeColorClass: "bg-[#7593ff]/20 text-[#7593ff]",
-        description: "Platform e-commerce lengkap untuk membantu pelaku UMKM memasarkan produk secara luas.",
-        previewIcon: "fa-regular fa-image",
-        previewLabel: "Preview",
-        isDashedBorder: false,
-        githubUrl: "https://github.com/nuguaaa/project-repo",
-        liveUrl: "https://live-demo-url.com"
+        githubUrl: "https://github.com/nuguaaa",
+        liveUrl: "https://github.com/nuguaaa",
+        techs: [
+            { name: "Laravel", icon: "fa-brands fa-laravel text-red-500" },
+            { name: "PHP", icon: "fa-brands fa-php text-indigo-400" },
+            { name: "Tailwind CSS", icon: "fa-solid fa-wind text-sky-400" },
+            { name: "JavaScript", icon: "fa-brands fa-js text-yellow-500" }
+        ]
     },
+    // ...project lainnya...
 ];
 
 // Data untuk Section: How I Bring Ideas to Life (Langkah-langkah kerja)
