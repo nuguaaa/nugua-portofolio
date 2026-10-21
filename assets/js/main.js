@@ -1,6 +1,7 @@
 /**
  * Main Application Logic for Nugua Portfolio
  * Handles i18n, theming, interactive UI, dynamic rendering, and animations.
+ * Fully optimized for Mobile, Tablet, and Desktop mode.
  */
 
 // Global State
@@ -125,12 +126,16 @@ function renderAllDynamicComponents(lang) {
 // Component Renderers
 // ==========================================
 
-// 1. Render Steps / How I Work (Home Page)
+// 1. Render Steps / How I Work (Home Page - Responsive for Mobile & Desktop)
 function renderSteps(lang) {
     const container = document.getElementById('stepContainer');
     if (!container || typeof portfolioData === 'undefined') return;
 
-    container.innerHTML = '';
+    container.innerHTML = `
+        <div class="timeline-spine hidden md:block"></div>
+        <div class="timeline-spine-mobile md:hidden"></div>
+    `;
+
     portfolioData.steps.forEach((step, index) => {
         const isEven = index % 2 === 1;
         const alignClass = isEven ? 'md:justify-end' : 'md:justify-start';
@@ -138,18 +143,18 @@ function renderSteps(lang) {
         const desc = getLocalizedField(step, 'description', lang);
 
         const html = `
-            <div class="w-full flex justify-center ${alignClass} relative z-10">
-                <div class="step-card glass-heavy-blur p-5 sm:p-6 rounded-2xl w-full md:w-[46%] relative group cursor-pointer border border-white/5 hover:border-[#7593ff]/60" data-step="${step.step}">
-                    <span class="absolute -top-3 -left-3 w-8 h-8 rounded-full bg-[#7593ff] text-white font-extrabold flex items-center justify-center text-xs shadow-[0_0_15px_rgba(117,147,255,0.6)]">
+            <div class="w-full flex justify-end ${alignClass} relative z-10 pl-8 md:pl-0">
+                <div class="step-card glass-heavy-blur p-4 sm:p-6 rounded-2xl w-full md:w-[46%] relative group cursor-pointer border border-white/5 hover:border-[#7593ff]/60" data-step="${step.step}">
+                    <span class="absolute -top-2.5 -left-2.5 md:-top-3 md:-left-3 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#7593ff] text-white font-extrabold flex items-center justify-center text-[11px] sm:text-xs shadow-[0_0_15px_rgba(117,147,255,0.6)]">
                         0${step.step}
                     </span>
-                    <div class="flex items-center gap-3.5 mb-2.5">
-                        <div class="w-10 h-10 rounded-xl bg-slate-200 dark:bg-slate-800/90 shadow-sm flex items-center justify-center text-[#7593ff] text-base group-hover:scale-110 transition-transform">
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-slate-200 dark:bg-slate-800/90 shadow-sm flex items-center justify-center text-[#7593ff] text-sm sm:text-base group-hover:scale-110 transition-transform shrink-0">
                             <i class="${step.icon}"></i>
                         </div>
-                        <h4 class="font-bold text-slate-900 dark:text-slate-100 text-sm sm:text-base">${title}</h4>
+                        <h4 class="font-bold text-slate-900 dark:text-slate-100 text-xs sm:text-base">${title}</h4>
                     </div>
-                    <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed">${desc}</p>
+                    <p class="text-slate-600 dark:text-slate-300 text-[11px] sm:text-sm leading-relaxed">${desc}</p>
                 </div>
             </div>
         `;
@@ -170,10 +175,10 @@ function renderServices(lang) {
         const html = `
             <div class="service-card glass-heavy-blur p-5 sm:p-6 rounded-3xl flex flex-col justify-between border border-white/5">
                 <div>
-                    <div class="w-12 h-12 rounded-2xl bg-[#7593ff]/15 text-[#7593ff] flex items-center justify-center text-xl mb-4 shadow-sm">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-[#7593ff]/15 text-[#7593ff] flex items-center justify-center text-lg sm:text-xl mb-3.5 shadow-sm">
                         <i class="${srv.icon}"></i>
                     </div>
-                    <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">${title}</h3>
+                    <h3 class="text-sm sm:text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">${title}</h3>
                     <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed">${desc}</p>
                 </div>
             </div>
@@ -194,12 +199,12 @@ function renderExperience(lang) {
         const desc = getLocalizedField(exp, 'description', lang);
 
         const html = `
-            <div class="timeline-card glass-heavy-blur p-5 sm:p-7 rounded-3xl relative border-l-4 border-l-[#7593ff] border-t border-r border-b border-white/5">
+            <div class="timeline-card glass-heavy-blur p-4 sm:p-7 rounded-3xl relative border-l-4 border-l-[#7593ff] border-t border-r border-b border-white/5">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
-                    <h4 class="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100">${role}</h4>
-                    <span class="inline-block px-3 py-1 rounded-full text-[11px] font-semibold bg-[#7593ff]/20 text-[#7593ff] self-start sm:self-auto">${exp.period}</span>
+                    <h4 class="text-sm sm:text-lg font-bold text-slate-900 dark:text-slate-100">${role}</h4>
+                    <span class="inline-block px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full text-[10px] sm:text-[11px] font-semibold bg-[#7593ff]/20 text-[#7593ff] self-start sm:self-auto">${exp.period}</span>
                 </div>
-                <div class="text-xs sm:text-sm font-semibold text-slate-500 dark:text-slate-400 mb-3 flex items-center gap-2">
+                <div class="text-xs sm:text-sm font-semibold text-slate-500 dark:text-slate-400 mb-2.5 flex items-center gap-2">
                     <i class="fa-regular fa-building text-[#7593ff]"></i> ${company}
                 </div>
                 <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed">${desc}</p>
@@ -209,7 +214,7 @@ function renderExperience(lang) {
     });
 }
 
-// 4. Render Featured Projects (Home Page)
+// 4. Render Featured Projects (Home Page - Responsive Grid)
 function renderFeaturedProjects(lang) {
     const container = document.getElementById('featuredProjectsGrid');
     if (!container || typeof portfolioData === 'undefined') return;
@@ -222,10 +227,10 @@ function renderFeaturedProjects(lang) {
         const desc = getLocalizedField(project, 'shortDesc', lang);
         const badge = getLocalizedField(project, 'badgeText', lang);
 
-        let techsHTML = '<div class="flex flex-wrap items-center gap-2 mt-3">';
+        let techsHTML = '<div class="flex flex-wrap items-center gap-1.5 sm:gap-2 mt-3">';
         project.techs.forEach(tech => {
             techsHTML += `
-                <span class="px-2.5 py-1 rounded-lg bg-slate-200/80 dark:bg-slate-800/80 text-[10px] sm:text-xs font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1.5 border border-slate-300 dark:border-slate-700">
+                <span class="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg bg-slate-200/80 dark:bg-slate-800/80 text-[10px] sm:text-xs font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1.5 border border-slate-300 dark:border-slate-700">
                     <i class="${tech.icon}"></i> ${tech.name}
                 </span>
             `;
@@ -233,28 +238,28 @@ function renderFeaturedProjects(lang) {
         techsHTML += '</div>';
 
         const html = `
-            <div class="project-card glass-heavy-blur p-5 sm:p-6 rounded-3xl flex flex-col justify-between border border-white/5">
+            <div class="project-card glass-heavy-blur p-4 sm:p-6 rounded-3xl flex flex-col justify-between border border-white/5">
                 <div>
-                    <div class="w-full h-36 sm:h-44 bg-slate-200 dark:bg-slate-800/60 border border-slate-300 dark:border-slate-700/80 rounded-2xl mb-4 overflow-hidden flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 p-4 text-center group cursor-pointer" onclick="openProjectModal('${project.id}')">
-                        <i class="${project.previewIcon} text-3xl sm:text-4xl text-[#7593ff] mb-2 group-hover:scale-110 transition-transform"></i>
+                    <div class="w-full h-32 sm:h-44 bg-slate-200 dark:bg-slate-800/60 border border-slate-300 dark:border-slate-700/80 rounded-2xl mb-3.5 sm:mb-4 overflow-hidden flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 p-4 text-center group cursor-pointer" onclick="openProjectModal('${project.id}')">
+                        <i class="${project.previewIcon} text-2xl sm:text-4xl text-[#7593ff] mb-1.5 sm:mb-2 group-hover:scale-110 transition-transform"></i>
                         <span class="text-xs sm:text-sm font-semibold">${project.previewLabel}</span>
                     </div>
 
                     <div class="flex items-center justify-between gap-2 mb-2">
-                        <h3 class="text-base sm:text-xl font-bold text-slate-900 dark:text-slate-100 hover:text-[#7593ff] transition cursor-pointer" onclick="openProjectModal('${project.id}')">${title}</h3>
-                        <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full ${project.badgeColorClass}">${badge}</span>
+                        <h3 class="text-sm sm:text-xl font-bold text-slate-900 dark:text-slate-100 hover:text-[#7593ff] transition cursor-pointer" onclick="openProjectModal('${project.id}')">${title}</h3>
+                        <span class="text-[10px] font-bold px-2 py-0.5 rounded-full shrink-0 ${project.badgeColorClass}">${badge}</span>
                     </div>
 
-                    <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed mb-3">${desc}</p>
+                    <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed mb-2 sm:mb-3">${desc}</p>
                     ${techsHTML}
                 </div>
 
-                <div class="flex items-center gap-2 mt-5 pt-4 border-t border-slate-200 dark:border-slate-800/80">
-                    <button onclick="openProjectModal('${project.id}')" class="soft-button-primary text-white font-semibold text-xs sm:text-sm py-2 px-3 rounded-xl flex-1 flex items-center justify-center gap-1.5 cursor-pointer">
-                        <i class="fa-solid fa-circle-info text-xs"></i> <span>${getTranslation('projects_btn_details', lang)}</span>
+                <div class="grid grid-cols-2 gap-2 mt-4 pt-3 border-t border-slate-200 dark:border-slate-800/80">
+                    <button onclick="openProjectModal('${project.id}')" class="soft-button-primary text-white font-semibold text-xs sm:text-sm py-2 px-2.5 rounded-xl flex items-center justify-center gap-1.5 cursor-pointer">
+                        <i class="fa-solid fa-circle-info text-xs"></i> <span class="truncate">${getTranslation('projects_btn_details', lang)}</span>
                     </button>
-                    <a href="${project.liveUrl}" target="_blank" class="soft-button-secondary text-slate-700 dark:text-slate-200 font-semibold text-xs sm:text-sm py-2 px-3 rounded-xl flex items-center justify-center gap-1.5 hover:text-[#7593ff]">
-                        <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i> <span>${getTranslation('projects_btn_demo', lang)}</span>
+                    <a href="${project.liveUrl}" target="_blank" class="soft-button-secondary text-slate-700 dark:text-slate-200 font-semibold text-xs sm:text-sm py-2 px-2.5 rounded-xl flex items-center justify-center gap-1.5 hover:text-[#7593ff]">
+                        <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i> <span class="truncate">${getTranslation('projects_btn_demo', lang)}</span>
                     </a>
                 </div>
             </div>
@@ -276,16 +281,16 @@ function renderTestimonials(lang) {
         const html = `
             <div class="testimonial-card glass-heavy-blur p-5 sm:p-7 rounded-3xl flex flex-col justify-between border border-white/5">
                 <div class="mb-4">
-                    <div class="text-[#7593ff] text-2xl mb-3"><i class="fa-solid fa-quote-left"></i></div>
+                    <div class="text-[#7593ff] text-xl sm:text-2xl mb-2 sm:mb-3"><i class="fa-solid fa-quote-left"></i></div>
                     <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed italic">${quote}</p>
                 </div>
                 <div class="flex items-center gap-3 pt-3 border-t border-slate-200 dark:border-slate-800/80">
-                    <div class="w-10 h-10 rounded-full bg-[#7593ff]/20 text-[#7593ff] font-extrabold flex items-center justify-center text-xs shadow-sm">
+                    <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#7593ff]/20 text-[#7593ff] font-extrabold flex items-center justify-center text-xs shadow-sm shrink-0">
                         ${testi.initials}
                     </div>
                     <div>
                         <h4 class="font-bold text-xs sm:text-sm text-slate-900 dark:text-slate-100">${testi.name}</h4>
-                        <span class="text-[11px] text-slate-500 dark:text-slate-400 block">${role} &bull; ${testi.country}</span>
+                        <span class="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 block">${role} &bull; ${testi.country}</span>
                     </div>
                 </div>
             </div>
@@ -294,7 +299,7 @@ function renderTestimonials(lang) {
     });
 }
 
-// 6. Render Projects Page (project.html)
+// 6. Render Projects Page (project.html - Responsive for Mobile, Tablet, Desktop)
 function renderProjectsPage(lang = currentLang) {
     const container = document.getElementById('projectContainer');
     if (!container || typeof portfolioData === 'undefined') return;
@@ -326,7 +331,7 @@ function renderProjectsPage(lang = currentLang) {
         container.innerHTML = `
             <div class="col-span-full text-center py-12 glass-heavy-blur rounded-3xl border border-white/5">
                 <i class="fa-solid fa-folder-open text-4xl text-slate-400 mb-3 block"></i>
-                <p class="text-slate-500 dark:text-slate-400 text-xs sm:text-sm max-w-sm mx-auto">
+                <p class="text-slate-500 dark:text-slate-400 text-xs sm:text-sm max-w-sm mx-auto px-4">
                     ${getTranslation('projects_empty', lang)}
                 </p>
             </div>
@@ -339,10 +344,10 @@ function renderProjectsPage(lang = currentLang) {
         const desc = getLocalizedField(project, 'shortDesc', lang);
         const badge = getLocalizedField(project, 'badgeText', lang);
 
-        let techsHTML = '<div class="flex flex-wrap items-center gap-2 mt-3 mb-2">';
+        let techsHTML = '<div class="flex flex-wrap items-center gap-1.5 sm:gap-2 mt-3 mb-2">';
         project.techs.forEach(tech => {
             techsHTML += `
-                <span class="px-2.5 py-1 rounded-lg bg-slate-200/80 dark:bg-slate-800/80 text-[10px] sm:text-xs font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1.5 border border-slate-300 dark:border-slate-700">
+                <span class="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg bg-slate-200/80 dark:bg-slate-800/80 text-[10px] sm:text-xs font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1.5 border border-slate-300 dark:border-slate-700">
                     <i class="${tech.icon}"></i> ${tech.name}
                 </span>
             `;
@@ -350,31 +355,31 @@ function renderProjectsPage(lang = currentLang) {
         techsHTML += '</div>';
 
         const html = `
-            <div class="project-card glass-heavy-blur p-5 sm:p-6 rounded-3xl flex flex-col justify-between border border-white/5">
+            <div class="project-card glass-heavy-blur p-4 sm:p-6 rounded-3xl flex flex-col justify-between border border-white/5">
                 <div>
-                    <div class="w-full h-36 sm:h-44 bg-slate-200 dark:bg-slate-800/60 border border-slate-300 dark:border-slate-700/80 rounded-2xl mb-4 overflow-hidden flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 p-4 text-center group cursor-pointer" onclick="openProjectModal('${project.id}')">
-                        <i class="${project.previewIcon} text-3xl sm:text-4xl text-[#7593ff] mb-2 group-hover:scale-110 transition-transform"></i>
+                    <div class="w-full h-32 sm:h-44 bg-slate-200 dark:bg-slate-800/60 border border-slate-300 dark:border-slate-700/80 rounded-2xl mb-3.5 sm:mb-4 overflow-hidden flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 p-4 text-center group cursor-pointer" onclick="openProjectModal('${project.id}')">
+                        <i class="${project.previewIcon} text-2xl sm:text-4xl text-[#7593ff] mb-1.5 sm:mb-2 group-hover:scale-110 transition-transform"></i>
                         <span class="text-xs sm:text-sm font-semibold">${project.previewLabel}</span>
                     </div>
 
                     <div class="flex items-center justify-between gap-2 mb-2">
-                        <h3 class="text-base sm:text-xl font-bold text-slate-900 dark:text-slate-100 hover:text-[#7593ff] transition cursor-pointer" onclick="openProjectModal('${project.id}')">${title}</h3>
-                        <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full ${project.badgeColorClass}">${badge}</span>
+                        <h3 class="text-sm sm:text-xl font-bold text-slate-900 dark:text-slate-100 hover:text-[#7593ff] transition cursor-pointer" onclick="openProjectModal('${project.id}')">${title}</h3>
+                        <span class="text-[10px] font-bold px-2 py-0.5 rounded-full shrink-0 ${project.badgeColorClass}">${badge}</span>
                     </div>
 
                     <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed mb-2">${desc}</p>
                     ${techsHTML}
                 </div>
 
-                <div class="flex items-center gap-2 mt-4 pt-3 border-t border-slate-200 dark:border-slate-800/80">
-                    <button onclick="openProjectModal('${project.id}')" class="soft-button-secondary text-slate-700 dark:text-slate-200 font-semibold text-xs py-2 px-3 rounded-xl flex-1 text-center hover:text-[#7593ff] cursor-pointer">
-                        <i class="fa-solid fa-circle-info mr-1"></i> ${getTranslation('projects_btn_details', lang)}
+                <div class="grid grid-cols-3 gap-1.5 sm:gap-2 mt-4 pt-3 border-t border-slate-200 dark:border-slate-800/80">
+                    <button onclick="openProjectModal('${project.id}')" class="soft-button-secondary text-slate-700 dark:text-slate-200 font-semibold text-[11px] sm:text-xs py-2 px-1 sm:px-2 rounded-xl text-center flex items-center justify-center gap-1 hover:text-[#7593ff] cursor-pointer">
+                        <i class="fa-solid fa-circle-info text-[10px] sm:text-xs"></i> <span class="truncate">${getTranslation('projects_btn_details', lang)}</span>
                     </button>
-                    <a href="${project.githubUrl}" target="_blank" class="soft-button-secondary text-slate-700 dark:text-slate-200 font-semibold text-xs py-2 px-3 rounded-xl flex-1 text-center">
-                        <i class="fa-brands fa-github mr-1"></i> ${getTranslation('projects_btn_code', lang)}
+                    <a href="${project.githubUrl}" target="_blank" class="soft-button-secondary text-slate-700 dark:text-slate-200 font-semibold text-[11px] sm:text-xs py-2 px-1 sm:px-2 rounded-xl text-center flex items-center justify-center gap-1">
+                        <i class="fa-brands fa-github text-[10px] sm:text-xs"></i> <span class="truncate">${getTranslation('projects_btn_code', lang)}</span>
                     </a>
-                    <a href="${project.liveUrl}" target="_blank" class="soft-button-primary text-white font-semibold text-xs py-2 px-3 rounded-xl flex-1 text-center">
-                        <i class="fa-solid fa-arrow-up-right-from-square mr-1"></i> ${getTranslation('projects_btn_demo', lang)}
+                    <a href="${project.liveUrl}" target="_blank" class="soft-button-primary text-white font-semibold text-[11px] sm:text-xs py-2 px-1 sm:px-2 rounded-xl text-center flex items-center justify-center gap-1">
+                        <i class="fa-solid fa-arrow-up-right-from-square text-[10px] sm:text-xs"></i> <span class="truncate">${getTranslation('projects_btn_demo', lang)}</span>
                     </a>
                 </div>
             </div>
@@ -446,7 +451,7 @@ function openProjectModal(projectId) {
     techsContainer.innerHTML = '';
     project.techs.forEach(t => {
         techsContainer.innerHTML += `
-            <span class="px-3 py-1 rounded-xl bg-slate-200 dark:bg-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-200 flex items-center gap-1.5 border border-slate-300 dark:border-slate-700">
+            <span class="px-2.5 py-1 rounded-xl bg-slate-200 dark:bg-slate-800 text-[11px] sm:text-xs font-semibold text-slate-700 dark:text-slate-200 flex items-center gap-1.5 border border-slate-300 dark:border-slate-700">
                 <i class="${t.icon}"></i> ${t.name}
             </span>
         `;
@@ -483,7 +488,7 @@ window.addEventListener('keydown', (e) => {
 // Resume Modal
 // ==========================================
 function initResumeModal() {
-    // Already defined in markup
+    // Defined in HTML markup
 }
 
 function openResumeModal() {
@@ -634,7 +639,7 @@ function initMobileMenu() {
 }
 
 // ==========================================
-// Mouse Glow Background
+// Mouse Glow Background (Touch & Cursor Enabled)
 // ==========================================
 function initMouseGlow() {
     const glow = document.getElementById('mouseGlow');
@@ -649,6 +654,14 @@ function initMouseGlow() {
         mouseX = e.clientX;
         mouseY = e.clientY;
     });
+
+    // Touch support for tablets and phones
+    window.addEventListener('touchmove', (e) => {
+        if (e.touches && e.touches[0]) {
+            mouseX = e.touches[0].clientX;
+            mouseY = e.touches[0].clientY;
+        }
+    }, { passive: true });
 
     function updateGlow() {
         glowX += (mouseX - glowX) * 0.12;
@@ -696,8 +709,8 @@ function initScrollAnimations() {
             }
         });
     }, {
-        threshold: 0.12,
-        rootMargin: '0px 0px -40px 0px'
+        threshold: 0.08,
+        rootMargin: '0px 0px -20px 0px'
     });
 
     boxes.forEach(box => observer.observe(box));
@@ -743,7 +756,7 @@ function initBackToTop() {
     if (!btn) return;
 
     window.addEventListener('scroll', () => {
-        if (window.scrollY > 400) {
+        if (window.scrollY > 350) {
             btn.classList.add('visible');
         } else {
             btn.classList.remove('visible');

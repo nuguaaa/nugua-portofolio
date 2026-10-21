@@ -1,5 +1,6 @@
 /* ==========================================================================
    Nugua Portfolio - Modern International Stylesheet
+   Fully Optimized for Mobile, Tablet, and Desktop Devices
    ========================================================================== */
 
 :root {
@@ -11,14 +12,21 @@
     --text-dark: #f1f5f9;
     --text-light: #1e293b;
     --card-dark: rgba(15, 23, 42, 0.72);
-    --card-light: rgba(255, 255, 255, 0.88);
+    --card-light: rgba(255, 255, 255, 0.90);
     --border-dark: rgba(255, 255, 255, 0.08);
     --border-light: rgba(226, 232, 240, 0.85);
 }
 
 /* Base resets & typography */
+*, *::before, *::after {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
 html {
     scroll-behavior: smooth;
+    text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -27,6 +35,7 @@ body {
     overflow-x: hidden;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     transition: background-color 0.3s ease, color 0.3s ease;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 html:not(.dark) body {
@@ -34,27 +43,37 @@ html:not(.dark) body {
     color: var(--text-light);
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-    width: 9px;
-}
-::-webkit-scrollbar-track {
-    background: #0b0f17;
-}
-html:not(.dark) ::-webkit-scrollbar-track {
-    background: #f1f5f9;
-}
-::-webkit-scrollbar-thumb {
-    background: #273549;
-    border-radius: 9999px;
-    border: 2px solid transparent;
-    background-clip: content-box;
-}
-::-webkit-scrollbar-thumb:hover {
-    background: #7593ff;
+/* Custom Scrollbar for desktop */
+@media (min-width: 768px) {
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+        background: #0b0f17;
+    }
+    html:not(.dark) ::-webkit-scrollbar-track {
+        background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: #273549;
+        border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        background: #7593ff;
+    }
 }
 
-/* Mouse Glow Effect */
+/* Hide scrollbar for touch-swipe pill containers */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Mouse Glow Effect (Active on Desktop & Cursor Devices) */
 .mouse-glow {
     position: fixed;
     top: 0;
@@ -69,6 +88,13 @@ html:not(.dark) ::-webkit-scrollbar-track {
 
 html:not(.dark) .mouse-glow {
     background: radial-gradient(800px circle at var(--x, 50%) var(--y, 50%), rgba(117, 147, 255, 0.22), rgba(248, 250, 252, 0) 50%);
+}
+
+/* On pure touch devices, reduce glow intensity to save battery and GPU */
+@media (hover: none) and (pointer: coarse) {
+    .mouse-glow {
+        opacity: 0.5;
+    }
 }
 
 .content-layer {
@@ -107,20 +133,27 @@ html:not(.dark) .glow-accent-box {
     background: linear-gradient(135deg, #95ACFF 0%, #7593ff 100%);
     color: #ffffff !important;
     box-shadow: 0 8px 20px rgba(117, 147, 255, 0.3);
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    touch-action: manipulation;
 }
 
-.soft-button-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 28px rgba(117, 147, 255, 0.5);
-    filter: brightness(1.05);
+@media (hover: hover) {
+    .soft-button-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 28px rgba(117, 147, 255, 0.5);
+        filter: brightness(1.05);
+    }
+}
+.soft-button-primary:active {
+    transform: scale(0.98);
 }
 
 .soft-button-secondary {
     background: rgba(30, 41, 59, 0.85);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    touch-action: manipulation;
 }
 
 html:not(.dark) .soft-button-secondary {
@@ -130,10 +163,15 @@ html:not(.dark) .soft-button-secondary {
     color: #475569;
 }
 
-.soft-button-secondary:hover {
-    transform: translateY(-2px);
-    border-color: rgba(117, 147, 255, 0.6);
-    box-shadow: 0 12px 24px rgba(149, 172, 255, 0.25);
+@media (hover: hover) {
+    .soft-button-secondary:hover {
+        transform: translateY(-2px);
+        border-color: rgba(117, 147, 255, 0.6);
+        box-shadow: 0 12px 24px rgba(149, 172, 255, 0.25);
+    }
+}
+.soft-button-secondary:active {
+    transform: scale(0.98);
 }
 
 .contact-pill-btn {
@@ -141,6 +179,7 @@ html:not(.dark) .soft-button-secondary {
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05);
     transition: all 0.25s ease;
+    touch-action: manipulation;
 }
 
 html:not(.dark) .contact-pill-btn {
@@ -148,32 +187,36 @@ html:not(.dark) .contact-pill-btn {
     border: 1px solid rgba(226, 232, 240, 1);
 }
 
-.contact-pill-btn:hover {
-    border-color: rgba(117, 147, 255, 0.6);
-    transform: translateY(-1px);
+@media (hover: hover) {
+    .contact-pill-btn:hover {
+        border-color: rgba(117, 147, 255, 0.6);
+        transform: translateY(-1px);
+    }
 }
 
 /* Interactive Badges */
 .interactive-badge {
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     cursor: pointer;
 }
-.interactive-badge:hover {
-    transform: translateY(-3px) scale(1.05);
-    background: linear-gradient(135deg, #95ACFF 0%, #7593ff 100%) !important;
-    color: #ffffff !important;
-    box-shadow: 0 8px 20px rgba(117, 147, 255, 0.4);
-    border-color: transparent !important;
-}
-.interactive-badge:hover i {
-    color: #ffffff !important;
+@media (hover: hover) {
+    .interactive-badge:hover {
+        transform: translateY(-2px) scale(1.04);
+        background: linear-gradient(135deg, #95ACFF 0%, #7593ff 100%) !important;
+        color: #ffffff !important;
+        box-shadow: 0 8px 20px rgba(117, 147, 255, 0.4);
+        border-color: transparent !important;
+    }
+    .interactive-badge:hover i {
+        color: #ffffff !important;
+    }
 }
 
 /* Scroll Animation Fade Box */
 .scroll-fade-box {
     opacity: 0;
-    transform: translateY(40px) scale(0.96);
-    transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateY(30px) scale(0.98);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     will-change: opacity, transform;
 }
 
@@ -199,24 +242,57 @@ html:not(.dark) .contact-pill-btn {
 
 /* Step Cards */
 .step-card {
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     position: relative;
 }
 
-.step-card:hover {
-    transform: translateY(-4px) scale(1.015);
-    border-color: #7593ff;
-    box-shadow: 0 20px 40px rgba(117, 147, 255, 0.28);
+@media (hover: hover) {
+    .step-card:hover {
+        transform: translateY(-4px) scale(1.015);
+        border-color: #7593ff;
+        box-shadow: 0 20px 40px rgba(117, 147, 255, 0.28);
+    }
+}
+
+/* Timeline Vertical Connector on Tablet and Desktop */
+@media (min-width: 768px) {
+    .timeline-spine {
+        position: absolute;
+        left: 50%;
+        top: 20px;
+        bottom: 20px;
+        width: 2px;
+        transform: translateX(-50%);
+        background: linear-gradient(to bottom, rgba(149, 172, 255, 0.6), rgba(117, 147, 255, 0.3), transparent);
+        pointer-events: none;
+        z-index: 0;
+    }
+}
+
+/* Timeline Vertical Connector on Mobile */
+@media (max-width: 767px) {
+    .timeline-spine-mobile {
+        position: absolute;
+        left: 18px;
+        top: 20px;
+        bottom: 20px;
+        width: 2px;
+        background: linear-gradient(to bottom, rgba(149, 172, 255, 0.5), rgba(117, 147, 255, 0.25), transparent);
+        pointer-events: none;
+        z-index: 0;
+    }
 }
 
 /* Project & Testimonial Cards */
 .project-card, .testimonial-card, .service-card, .timeline-card {
-    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.project-card:hover, .testimonial-card:hover, .service-card:hover, .timeline-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 22px 42px rgba(117, 147, 255, 0.28);
-    border-color: rgba(117, 147, 255, 0.7);
+@media (hover: hover) {
+    .project-card:hover, .testimonial-card:hover, .service-card:hover, .timeline-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 38px rgba(117, 147, 255, 0.25);
+        border-color: rgba(117, 147, 255, 0.7);
+    }
 }
 
 /* Marquee infinite ticker */
@@ -225,23 +301,35 @@ html:not(.dark) .contact-pill-btn {
     width: 100%;
     position: relative;
     display: flex;
-    mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
-    -webkit-mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
 }
 
 .marquee-track {
     display: flex;
-    gap: 1.25rem;
+    gap: 1rem;
     width: max-content;
     will-change: transform;
-    animation: scrollMarquee 28s linear infinite;
+    animation: scrollMarquee 26s linear infinite;
+}
+
+@media (min-width: 640px) {
+    .marquee-track {
+        gap: 1.25rem;
+    }
 }
 
 .marquee-group {
     display: flex;
-    gap: 1.25rem;
+    gap: 1rem;
     flex-shrink: 0;
     min-width: max-content;
+}
+
+@media (min-width: 640px) {
+    .marquee-group {
+        gap: 1.25rem;
+    }
 }
 
 .marquee-track:hover {
@@ -251,10 +339,12 @@ html:not(.dark) .contact-pill-btn {
 .marquee-card {
     transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
-.marquee-card:hover {
-    transform: translateY(-3px) scale(1.03);
-    box-shadow: 0 10px 25px rgba(149, 172, 255, 0.35);
-    border-color: rgba(117, 147, 255, 0.6);
+@media (hover: hover) {
+    .marquee-card:hover {
+        transform: translateY(-2px) scale(1.02);
+        box-shadow: 0 10px 22px rgba(149, 172, 255, 0.3);
+        border-color: rgba(117, 147, 255, 0.6);
+    }
 }
 
 @keyframes scrollMarquee {
@@ -308,28 +398,50 @@ html:not(.dark) .contact-pill-btn {
     pointer-events: auto;
 }
 
-/* Modal Backdrop & Container */
+/* Modal Backdrop & Container - Full Responsive */
 .modal-overlay {
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    background-color: rgba(11, 15, 23, 0.75);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    background-color: rgba(11, 15, 23, 0.82);
     transition: opacity 0.3s ease;
 }
 
 .modal-content {
     transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+    max-height: 90vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
-/* Toast Notification */
+@media (max-width: 640px) {
+    .modal-content {
+        max-height: 86vh;
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+}
+
+/* Toast Notification - Mobile Friendly */
 #toastNotification {
     position: fixed;
-    bottom: 24px;
-    right: 24px;
+    bottom: 20px;
+    right: 20px;
     z-index: 9999;
     transform: translateY(100px);
     opacity: 0;
     transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     pointer-events: none;
+    max-width: 90vw;
+}
+
+@media (max-width: 640px) {
+    #toastNotification {
+        left: 16px;
+        right: 16px;
+        bottom: 16px;
+        justify-content: center;
+        text-align: center;
+    }
 }
 
 #toastNotification.show {
@@ -338,16 +450,26 @@ html:not(.dark) .contact-pill-btn {
     pointer-events: auto;
 }
 
-/* Back To Top Button */
+/* Back To Top Button - Thumb Friendly */
 #backToTopBtn {
     position: fixed;
-    bottom: 24px;
-    left: 24px;
+    bottom: 20px;
+    left: 20px;
     z-index: 40;
     opacity: 0;
     visibility: hidden;
     transform: scale(0.8);
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    touch-action: manipulation;
+}
+
+@media (max-width: 640px) {
+    #backToTopBtn {
+        bottom: 16px;
+        left: 16px;
+        width: 38px;
+        height: 38px;
+    }
 }
 
 #backToTopBtn.visible {
@@ -356,13 +478,16 @@ html:not(.dark) .contact-pill-btn {
     transform: scale(1);
 }
 
-#backToTopBtn:hover {
-    transform: translateY(-3px) scale(1.05);
+@media (hover: hover) {
+    #backToTopBtn:hover {
+        transform: translateY(-2px) scale(1.05);
+    }
 }
 
 /* Mobile Navigation Drawer */
 #mobileMenuDrawer {
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+    -webkit-overflow-scrolling: touch;
 }
 
 #mobileMenuDrawer.closed {

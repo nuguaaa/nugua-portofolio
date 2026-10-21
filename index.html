@@ -65,13 +65,13 @@
             </div>
 
             <!-- Navbar Action Controls -->
-            <div class="flex items-center gap-2 sm:gap-3">
+            <div class="flex items-center gap-1.5 sm:gap-3">
                 
                 <!-- Language Selector Dropdown -->
                 <div class="relative">
                     <button class="lang-dropdown-btn contact-pill-btn px-2.5 sm:px-3 py-1.5 rounded-full text-xs font-semibold text-slate-700 dark:text-slate-200 flex items-center gap-1.5 cursor-pointer hover:border-[#7593ff]/60 transition" data-target="langMenuDesktop" aria-label="Select Language">
                         <i class="fa-solid fa-globe text-[#7593ff] text-xs"></i>
-                        <span class="current-lang-text font-bold">🇬🇧 EN</span>
+                        <span class="current-lang-text font-bold text-xs">🇬🇧 EN</span>
                         <i class="fa-solid fa-chevron-down text-[10px] opacity-70"></i>
                     </button>
 
@@ -98,15 +98,15 @@
                     <i class="fa-solid fa-sun text-xs sm:text-sm dark:hidden"></i>
                 </button>
 
-                <!-- Contact CTA Button (Desktop) -->
+                <!-- Contact CTA Button (Desktop & Tablet) -->
                 <div class="hidden sm:flex items-center">
-                    <a href="#contact" class="soft-button-primary px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-semibold flex items-center gap-2">
+                    <a href="#contact" class="soft-button-primary px-3 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-semibold flex items-center gap-2">
                         <i class="fa-regular fa-comment-dots"></i>
                         <span data-i18n="nav_contact_btn">Contact Me</span>
                     </a>
                 </div>
 
-                <!-- Mobile Hamburger Button -->
+                <!-- Mobile & Tablet Hamburger Button -->
                 <button id="mobileMenuOpenBtn" class="lg:hidden w-8 h-8 sm:w-10 sm:h-10 rounded-full glass-heavy-blur flex items-center justify-center text-slate-700 dark:text-slate-200 hover:text-[#7593ff] transition cursor-pointer" aria-label="Open Mobile Menu">
                     <i class="fa-solid fa-bars text-sm"></i>
                 </button>
@@ -552,8 +552,8 @@
 
     <!-- ================= PROJECT DETAILS MODAL ================= -->
     <div id="projectModal" class="modal-overlay hidden fixed inset-0 z-50 items-center justify-center p-3 sm:p-6 overflow-y-auto" onclick="if(event.target === this) closeProjectModal()">
-        <div class="modal-content glass-heavy-blur rounded-3xl max-w-2xl w-full p-6 sm:p-8 relative border border-white/10 shadow-2xl my-auto">
-            <button onclick="closeProjectModal()" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-200 flex items-center justify-center hover:bg-[#7593ff] hover:text-white transition cursor-pointer" aria-label="Close Modal">
+        <div class="modal-content glass-heavy-blur rounded-3xl max-w-2xl w-full p-4 sm:p-8 relative border border-white/10 shadow-2xl my-auto">
+            <button onclick="closeProjectModal()" class="absolute top-4 right-4 sm:top-5 sm:right-5 w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-200 flex items-center justify-center hover:bg-[#7593ff] hover:text-white transition cursor-pointer" aria-label="Close Modal">
                 <i class="fa-solid fa-xmark text-sm"></i>
             </button>
 
@@ -598,8 +598,8 @@
 
     <!-- ================= RESUME / CV MODAL ================= -->
     <div id="resumeModal" class="modal-overlay hidden fixed inset-0 z-50 items-center justify-center p-3 sm:p-6 overflow-y-auto" onclick="if(event.target === this) closeResumeModal()">
-        <div class="modal-content glass-heavy-blur rounded-3xl max-w-3xl w-full p-6 sm:p-9 relative border border-white/10 shadow-2xl my-auto">
-            <button onclick="closeResumeModal()" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-200 flex items-center justify-center hover:bg-[#7593ff] hover:text-white transition cursor-pointer" aria-label="Close Resume">
+        <div class="modal-content glass-heavy-blur rounded-3xl max-w-3xl w-full p-4 sm:p-8 relative border border-white/10 shadow-2xl my-auto">
+            <button onclick="closeResumeModal()" class="absolute top-4 right-4 sm:top-5 sm:right-5 w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-200 flex items-center justify-center hover:bg-[#7593ff] hover:text-white transition cursor-pointer" aria-label="Close Resume">
                 <i class="fa-solid fa-xmark text-sm"></i>
             </button>
 
