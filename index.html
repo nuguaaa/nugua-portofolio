@@ -3,660 +3,688 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nugua - Web Developer Portfolio</title>
+    <meta name="description" content="Nugua - Professional Full-Stack Web Developer Portfolio. Building modern, scalable, and high-performance web applications.">
+    <meta name="keywords" content="Web Developer, Full Stack Developer, Laravel, PHP, JavaScript, Tailwind CSS, Frontend, Backend, Portfolio">
+    <meta name="author" content="Nugua">
+    
+    <!-- Open Graph Meta Tags for International Sharing -->
+    <meta property="og:title" content="Nugua — Full-Stack Web Developer Portfolio">
+    <meta property="og:description" content="Crafting High-Performance & Scalable Web Solutions. Explore projects, skills, and experience.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="assets/img/profile.JPG">
+    
+    <title>Nugua — Full-Stack Web Developer Portfolio</title>
+    
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#7593ff',
+                        'primary-light': '#95acff',
+                    }
+                }
+            }
         }
     </script>
+    
+    <!-- FontAwesome 6 CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        body {
-            background-color: #0b0f17;
-            color: #f1f5f9;
-            overflow-x: hidden;
-            font-family: system-ui, -apple-system, sans-serif;
-            scroll-behavior: smooth;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        html:not(.dark) body {
-            background-color: #f8fafc;
-            color: #1e293b;
-        }
-        
-        .mouse-glow {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: none;
-            background: radial-gradient(800px circle at var(--x, 50%) var(--y, 50%), rgba(117, 147, 255, 0.18), rgba(15, 23, 42, 0) 50%);
-            z-index: 1;
-            transition: background 0.2s ease;
-        }
-
-        html:not(.dark) .mouse-glow {
-            background: radial-gradient(800px circle at var(--x, 50%) var(--y, 50%), rgba(117, 147, 255, 0.25), rgba(248, 250, 252, 0) 50%);
-        }
-
-        .content-layer {
-            position: relative;
-            z-index: 10;
-        }
-
-        .glass-heavy-blur {
-            background: rgba(15, 23, 42, 0.7);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        html:not(.dark) .glass-heavy-blur {
-            background: rgba(255, 255, 255, 0.85);
-            border: 1px solid rgba(226, 232, 240, 0.8);
-            box-shadow: 0 15px 35px rgba(149, 172, 255, 0.12);
-        }
-
-        .glow-accent-box {
-            box-shadow: 0 15px 35px rgba(117, 147, 255, 0.15), inset 0 0 15px rgba(117, 147, 255, 0.05);
-            border: 1px solid rgba(117, 147, 255, 0.3);
-        }
-
-        html:not(.dark) .glow-accent-box {
-            box-shadow: 0 15px 35px rgba(117, 147, 255, 0.2), inset 0 0 15px rgba(117, 147, 255, 0.08);
-            border: 1px solid rgba(117, 147, 255, 0.4);
-        }
-
-        .soft-button-primary {
-            background: linear-gradient(135deg, #95ACFF 0%, #7593ff 100%);
-            box-shadow: 0 8px 20px rgba(117, 147, 255, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        html:not(.dark) .soft-button-primary {
-            color: #ffffff !important;
-            box-shadow: 0 8px 20px rgba(117, 147, 255, 0.35);
-        }
-
-        .soft-button-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(117, 147, 255, 0.5);
-        }
-
-        .soft-button-secondary {
-            background: rgba(30, 41, 59, 0.8);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            transition: all 0.3s ease;
-        }
-
-        html:not(.dark) .soft-button-secondary {
-            background: rgba(255, 255, 255, 0.9);
-            box-shadow: 0 8px 20px rgba(149, 172, 255, 0.15);
-            border: 1px solid rgba(226, 232, 240, 1);
-            color: #475569;
-        }
-
-        .soft-button-secondary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(149, 172, 255, 0.25);
-        }
-
-        .interactive-badge {
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            cursor: pointer;
-        }
-        .interactive-badge:hover {
-            transform: translateY(-3px) scale(1.05);
-            background: linear-gradient(135deg, #95ACFF 0%, #7593ff 100%) !important;
-            color: #ffffff !important;
-            box-shadow: 0 8px 20px rgba(117, 147, 255, 0.4);
-            border-color: transparent;
-        }
-        .interactive-badge:hover i {
-            color: #ffffff !important;
-        }
-
-        .scroll-fade-box {
-            opacity: 0;
-            transform: translateY(60px) scale(0.85);
-            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-            will-change: opacity, transform;
-        }
-
-        .scroll-fade-box.visible {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
-
-        .typing-cursor {
-            display: inline-block;
-            background-color: #7593ff;
-            width: 2px;
-            animation: blink 1s infinite;
-            vertical-align: middle;
-            margin-left: 2px;
-        }
-
-        @keyframes blink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0; }
-        }
-
-        .step-card {
-            opacity: 0;
-            transform: scale(0.85) translateY(25px);
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .step-card.active-step {
-            opacity: 1;
-            transform: scale(1) translateY(0);
-            border-color: rgba(149, 172, 255, 0.9);
-            box-shadow: 0 15px 30px rgba(149, 172, 255, 0.25);
-        }
-
-        .step-card:hover {
-            transform: translateY(-5px) scale(1.02);
-            border-color: #7593ff;
-            box-shadow: 0 20px 40px rgba(117, 147, 255, 0.35);
-            background: rgba(30, 41, 59, 0.85);
-        }
-
-        html:not(.dark) .step-card:hover {
-            background: rgba(255, 255, 255, 0.95);
-        }
-
-        .marquee-container {
-            overflow: hidden;
-            width: 100%;
-            position: relative;
-            display: flex;
-            mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
-            -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
-        }
-
-        .marquee-track {
-            display: flex;
-            gap: 1.25rem;
-            width: max-content;
-            will-change: transform;
-            animation: scrollMarquee 20s linear infinite;
-        }
-
-        .marquee-group {
-            display: flex;
-            gap: 1.25rem;
-            flex-shrink: 0;
-            min-width: max-content;
-        }
-
-        .marquee-track:has(.marquee-card:hover) {
-            animation-play-state: paused;
-        }
-
-        .marquee-card {
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .marquee-card:hover {
-            transform: translateY(-3px) scale(1.03);
-            box-shadow: 0 10px 25px rgba(149, 172, 255, 0.35);
-        }
-
-        @keyframes scrollMarquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(var(--marquee-scroll-width)); }
-        }
-
-        .project-card, .testimonial-card {
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .project-card:hover, .testimonial-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 20px 40px rgba(117, 147, 255, 0.3);
-            border-color: rgba(117, 147, 255, 0.8);
-        }
-    </style>
+    
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body class="min-h-screen flex flex-col justify-between p-3 sm:p-6 md:p-10">
+<body class="min-h-screen flex flex-col justify-between p-3 sm:p-6 md:p-8">
 
+    <!-- Interactive Mouse Tracking Glow Background -->
     <div class="mouse-glow" id="mouseGlow"></div>
 
+    <!-- Main Content Wrapper Layer -->
     <div class="content-layer max-w-6xl mx-auto w-full flex flex-col items-center">
         
-        <nav class="glass-heavy-blur rounded-full px-3.5 sm:px-5 py-2 w-full max-w-4xl flex items-center justify-between mb-4 sm:mb-8 sticky top-3 sm:top-6 z-50">
-            <a href="#" class="w-8 h-8 sm:w-12 sm:h-12 flex items-center justify-center shrink-0">
-                <img src="assets/img/logo.png" alt="Logo" class="object-contain w-full h-full">
+        <!-- ================= NAVBAR ================= -->
+        <nav class="glass-heavy-blur rounded-full px-3.5 sm:px-6 py-2.5 w-full max-w-5xl flex items-center justify-between mb-4 sm:mb-8 sticky top-3 sm:top-5 z-50 shadow-lg">
+            <!-- Brand Logo -->
+            <a href="#" class="w-9 h-9 sm:w-11 sm:h-11 flex items-center justify-center shrink-0 transition-transform hover:scale-105" title="Home">
+                <img src="assets/img/logo.png" alt="Nugua Logo" class="object-contain w-full h-full">
             </a>
             
-            <div class="flex items-center space-x-2 sm:space-x-6 text-slate-600 dark:text-slate-300 font-medium text-xs sm:text-sm">
-                <a href="#about" class="hover:text-[#7593ff] transition">About</a>
-                <a href="#skills" class="hover:text-[#7593ff] transition">Skills</a>
-                <a href="#projects" class="hover:text-[#7593ff] transition">Projects</a>
-                <a href="#testimonials" class="hover:text-[#7593ff] transition">Testimonials</a>
-                <a href="#contact" class="hover:text-[#7593ff] transition">Contact</a>
+            <!-- Desktop Navigation Links -->
+            <div class="hidden lg:flex items-center space-x-5 xl:space-x-6 text-slate-600 dark:text-slate-300 font-medium text-xs sm:text-sm">
+                <a href="#about" class="hover:text-[#7593ff] transition-colors" data-i18n="nav_about">About</a>
+                <a href="#skills" class="hover:text-[#7593ff] transition-colors" data-i18n="nav_skills">Skills</a>
+                <a href="#services" class="hover:text-[#7593ff] transition-colors" data-i18n="nav_services">Services</a>
+                <a href="#experience" class="hover:text-[#7593ff] transition-colors" data-i18n="nav_experience">Experience</a>
+                <a href="#process" class="hover:text-[#7593ff] transition-colors" data-i18n="nav_process">Process</a>
+                <a href="#projects" class="hover:text-[#7593ff] transition-colors" data-i18n="nav_projects">Projects</a>
+                <a href="#testimonials" class="hover:text-[#7593ff] transition-colors" data-i18n="nav_testimonials">Testimonials</a>
+                <a href="#contact" class="hover:text-[#7593ff] transition-colors" data-i18n="nav_contact">Contact</a>
             </div>
 
+            <!-- Navbar Action Controls -->
             <div class="flex items-center gap-2 sm:gap-3">
-                <button id="themeToggle" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full glass-heavy-blur flex items-center justify-center text-slate-700 dark:text-slate-200 hover:text-[#7593ff] transition shadow-sm cursor-pointer" title="Toggle Theme">
+                
+                <!-- Language Selector Dropdown -->
+                <div class="relative">
+                    <button class="lang-dropdown-btn contact-pill-btn px-2.5 sm:px-3 py-1.5 rounded-full text-xs font-semibold text-slate-700 dark:text-slate-200 flex items-center gap-1.5 cursor-pointer hover:border-[#7593ff]/60 transition" data-target="langMenuDesktop" aria-label="Select Language">
+                        <i class="fa-solid fa-globe text-[#7593ff] text-xs"></i>
+                        <span class="current-lang-text font-bold">🇬🇧 EN</span>
+                        <i class="fa-solid fa-chevron-down text-[10px] opacity-70"></i>
+                    </button>
+
+                    <!-- Dropdown Menu -->
+                    <div id="langMenuDesktop" class="dropdown-menu hidden absolute right-0 mt-2 w-44 rounded-2xl glass-heavy-blur p-2 shadow-2xl z-50 border border-white/10">
+                        <button onclick="setLanguage('en')" class="w-full text-left px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-[#7593ff]/15 hover:text-[#7593ff] flex items-center gap-2.5 transition">
+                            <span>🇬🇧</span>
+                            <span>English</span>
+                        </button>
+                        <button onclick="setLanguage('id')" class="w-full text-left px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-[#7593ff]/15 hover:text-[#7593ff] flex items-center gap-2.5 transition">
+                            <span>🇮🇩</span>
+                            <span>Bahasa Indonesia</span>
+                        </button>
+                        <button onclick="setLanguage('de')" class="w-full text-left px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-[#7593ff]/15 hover:text-[#7593ff] flex items-center gap-2.5 transition">
+                            <span>🇩🇪</span>
+                            <span>Deutsch</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Theme Toggle Button -->
+                <button class="theme-toggle-btn w-8 h-8 sm:w-10 sm:h-10 rounded-full glass-heavy-blur flex items-center justify-center text-slate-700 dark:text-slate-200 hover:text-[#7593ff] transition shadow-sm cursor-pointer" title="Toggle Theme" aria-label="Toggle Theme">
                     <i class="fa-solid fa-moon text-xs sm:text-sm hidden dark:block"></i>
                     <i class="fa-solid fa-sun text-xs sm:text-sm dark:hidden"></i>
                 </button>
 
+                <!-- Contact CTA Button (Desktop) -->
                 <div class="hidden sm:flex items-center">
-                    <a href="#contact" class="soft-button-secondary px-5 py-2 rounded-full text-sm font-semibold text-[#7593ff] flex items-center gap-2">
-                        <i class="fa-regular fa-comment-dots"></i> Contact Me
+                    <a href="#contact" class="soft-button-primary px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-semibold flex items-center gap-2">
+                        <i class="fa-regular fa-comment-dots"></i>
+                        <span data-i18n="nav_contact_btn">Contact Me</span>
                     </a>
                 </div>
+
+                <!-- Mobile Hamburger Button -->
+                <button id="mobileMenuOpenBtn" class="lg:hidden w-8 h-8 sm:w-10 sm:h-10 rounded-full glass-heavy-blur flex items-center justify-center text-slate-700 dark:text-slate-200 hover:text-[#7593ff] transition cursor-pointer" aria-label="Open Mobile Menu">
+                    <i class="fa-solid fa-bars text-sm"></i>
+                </button>
             </div>
         </nav>
 
-        <main class="text-center max-w-4xl mx-auto flex flex-col items-center my-2 sm:my-6">
-            <div class="glass-heavy-blur px-4 py-1.5 rounded-full text-[11px] md:text-sm font-medium text-slate-700 dark:text-slate-300 mb-4 sm:mb-6 flex items-center gap-2">
-                <i class="fa-solid fa-wand-magic-sparkles text-[#7593ff]"></i> Hello, I'm Nugua – Welcome to my digital space
+        <!-- ================= MOBILE MENU DRAWER ================= -->
+        <div id="mobileMenuDrawer" class="closed fixed inset-x-3 top-3 z-50 lg:hidden glass-heavy-blur rounded-3xl p-5 shadow-2xl border border-white/10 max-h-[92vh] overflow-y-auto">
+            <div class="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800">
+                <div class="flex items-center gap-3">
+                    <img src="assets/img/logo.png" alt="Logo" class="w-8 h-8 object-contain">
+                    <span class="font-bold text-sm text-slate-900 dark:text-slate-100">Nugua Portfolio</span>
+                </div>
+                <button id="mobileMenuCloseBtn" class="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center text-slate-700 dark:text-slate-200 cursor-pointer">
+                    <i class="fa-solid fa-xmark text-sm"></i>
+                </button>
             </div>
 
-            <h1 class="text-2xl sm:text-5xl md:text-6xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight leading-tight mb-3 sm:mb-6">
-                Crafting Modern and Scalable Web Solutions
+            <!-- Mobile Navigation Links -->
+            <div class="flex flex-col gap-3 py-4 text-sm font-medium text-slate-700 dark:text-slate-200 border-b border-slate-200 dark:border-slate-800">
+                <a href="#about" class="px-3 py-2 rounded-xl hover:bg-[#7593ff]/10 hover:text-[#7593ff] transition" data-i18n="nav_about">About</a>
+                <a href="#skills" class="px-3 py-2 rounded-xl hover:bg-[#7593ff]/10 hover:text-[#7593ff] transition" data-i18n="nav_skills">Skills</a>
+                <a href="#services" class="px-3 py-2 rounded-xl hover:bg-[#7593ff]/10 hover:text-[#7593ff] transition" data-i18n="nav_services">Services</a>
+                <a href="#experience" class="px-3 py-2 rounded-xl hover:bg-[#7593ff]/10 hover:text-[#7593ff] transition" data-i18n="nav_experience">Experience</a>
+                <a href="#process" class="px-3 py-2 rounded-xl hover:bg-[#7593ff]/10 hover:text-[#7593ff] transition" data-i18n="nav_process">Process</a>
+                <a href="#projects" class="px-3 py-2 rounded-xl hover:bg-[#7593ff]/10 hover:text-[#7593ff] transition" data-i18n="nav_projects">Projects</a>
+                <a href="project.html" class="px-3 py-2 rounded-xl hover:bg-[#7593ff]/10 hover:text-[#7593ff] transition flex items-center justify-between">
+                    <span data-i18n="projects_btn_all">All Projects</span>
+                    <i class="fa-solid fa-arrow-right text-xs"></i>
+                </a>
+                <a href="#testimonials" class="px-3 py-2 rounded-xl hover:bg-[#7593ff]/10 hover:text-[#7593ff] transition" data-i18n="nav_testimonials">Testimonials</a>
+                <a href="#contact" class="px-3 py-2 rounded-xl hover:bg-[#7593ff]/10 hover:text-[#7593ff] transition" data-i18n="nav_contact">Contact</a>
+            </div>
+
+            <!-- Mobile Language & CTA -->
+            <div class="pt-4 flex flex-col gap-3">
+                <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Choose Language</div>
+                <div class="grid grid-cols-3 gap-2">
+                    <button onclick="setLanguage('en')" class="px-2.5 py-2 rounded-xl text-xs font-semibold bg-slate-200/80 dark:bg-slate-800 text-slate-800 dark:text-slate-200 hover:bg-[#7593ff] hover:text-white transition">🇬🇧 EN</button>
+                    <button onclick="setLanguage('id')" class="px-2.5 py-2 rounded-xl text-xs font-semibold bg-slate-200/80 dark:bg-slate-800 text-slate-800 dark:text-slate-200 hover:bg-[#7593ff] hover:text-white transition">🇮🇩 ID</button>
+                    <button onclick="setLanguage('de')" class="px-2.5 py-2 rounded-xl text-xs font-semibold bg-slate-200/80 dark:bg-slate-800 text-slate-800 dark:text-slate-200 hover:bg-[#7593ff] hover:text-white transition">🇩🇪 DE</button>
+                </div>
+                <a href="#contact" class="soft-button-primary w-full py-2.5 rounded-xl text-center text-xs font-bold text-white mt-2 flex items-center justify-center gap-2">
+                    <i class="fa-regular fa-comment-dots"></i>
+                    <span data-i18n="nav_contact_btn">Contact Me</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- ================= HERO SECTION ================= -->
+        <main class="text-center max-w-4xl mx-auto flex flex-col items-center my-6 sm:my-10 px-2">
+            
+            <!-- Live Availability Status Badge -->
+            <div class="glass-heavy-blur px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200 mb-5 sm:mb-6 flex items-center gap-2.5 shadow-sm border border-white/5">
+                <span class="status-pulse">
+                    <span class="status-pulse-dot"></span>
+                </span>
+                <span data-i18n="hero_badge">Available for International Remote Work</span>
+            </div>
+
+            <!-- Hero Main Heading -->
+            <h1 class="text-3xl sm:text-5xl md:text-6xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight leading-[1.15] mb-4 sm:mb-6">
+                <span class="block" data-i18n="hero_title_1">Crafting High-Performance &</span>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#95ACFF] to-[#7593ff]" data-i18n="hero_title_2">Scalable Web Solutions</span>
             </h1>
 
-            <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-base md:text-lg max-w-2xl mb-6 sm:mb-8 leading-relaxed">
-                Transforming ideas into clean, responsive, and user-friendly web applications to help businesses grow online.
+            <!-- Hero Subtitle -->
+            <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-base md:text-lg max-w-2xl mb-7 sm:mb-9 leading-relaxed" data-i18n="hero_subtitle">
+                Full-Stack Web Developer specialized in architecting clean, secure, and user-centric web applications that drive real business growth.
             </p>
 
-            <div class="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
-                <a href="#projects" class="soft-button-primary text-white font-medium px-6 py-2.5 sm:px-7 sm:py-3 rounded-full text-xs sm:text-base w-full sm:w-auto text-center flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-code"></i> Explore My Work
+            <!-- Hero CTA Actions -->
+            <div class="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto mb-6">
+                <a href="#projects" class="soft-button-primary text-white font-semibold px-6 py-3 rounded-full text-xs sm:text-sm w-full sm:w-auto text-center flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-code"></i>
+                    <span data-i18n="hero_btn_explore">Explore My Work</span>
                 </a>
-                <a href="#contact" class="soft-button-secondary text-slate-700 dark:text-slate-200 font-medium px-6 py-2.5 sm:px-7 sm:py-3 rounded-full text-xs sm:text-base w-full sm:w-auto text-center flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-paper-plane"></i> Let's Connect
+                <button onclick="openResumeModal()" class="soft-button-secondary text-slate-700 dark:text-slate-200 font-semibold px-6 py-3 rounded-full text-xs sm:text-sm w-full sm:w-auto text-center flex items-center justify-center gap-2 cursor-pointer">
+                    <i class="fa-solid fa-file-arrow-down text-[#7593ff]"></i>
+                    <span data-i18n="hero_btn_resume">Download CV</span>
+                </button>
+                <a href="#contact" class="soft-button-secondary text-slate-700 dark:text-slate-200 font-semibold px-6 py-3 rounded-full text-xs sm:text-sm w-full sm:w-auto text-center flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-paper-plane text-[#7593ff]"></i>
+                    <span data-i18n="hero_btn_connect">Let's Connect</span>
                 </a>
+            </div>
+
+            <!-- Social Media Quick Links -->
+            <div class="flex items-center gap-3 text-slate-500 dark:text-slate-400 text-sm">
+                <a href="https://github.com/nuguaaa" target="_blank" class="contact-pill-btn px-3 py-1.5 rounded-full flex items-center gap-1.5 hover:text-[#7593ff] transition text-xs">
+                    <i class="fa-brands fa-github text-sm"></i> GitHub
+                </a>
+                <a href="https://linkedin.com" target="_blank" class="contact-pill-btn px-3 py-1.5 rounded-full flex items-center gap-1.5 hover:text-[#7593ff] transition text-xs">
+                    <i class="fa-brands fa-linkedin text-sm text-[#0077b5]"></i> LinkedIn
+                </a>
+                <button onclick="copyEmailAddress()" class="contact-pill-btn px-3 py-1.5 rounded-full flex items-center gap-1.5 hover:text-[#7593ff] transition text-xs cursor-pointer">
+                    <i class="fa-solid fa-envelope text-sm text-[#7593ff]"></i> Copy Email
+                </button>
             </div>
         </main>
 
-        <!-- ABOUT SECTION -->
-        <section id="about" class="w-full max-w-5xl my-10 sm:my-16">
-            <div class="scroll-fade-box glass-heavy-blur glow-accent-box p-5 sm:p-10 rounded-3xl mb-8 sm:mb-10" id="aboutCard">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+        <!-- ================= STATS BAR ================= -->
+        <section id="statsSection" class="scroll-fade-box w-full max-w-5xl my-8 sm:my-12">
+            <div class="glass-heavy-blur glow-accent-box rounded-3xl p-5 sm:p-7 grid grid-cols-2 md:grid-cols-4 gap-5 sm:gap-6 text-center">
+                <div class="flex flex-col items-center">
+                    <span class="text-2xl sm:text-4xl font-extrabold text-[#7593ff] stat-counter" data-target="3" data-suffix="+">3+</span>
+                    <span class="text-[11px] sm:text-xs font-medium text-slate-600 dark:text-slate-400 mt-1" data-i18n="stat_years_label">Years Experience</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <span class="text-2xl sm:text-4xl font-extrabold text-[#7593ff] stat-counter" data-target="25" data-suffix="+">25+</span>
+                    <span class="text-[11px] sm:text-xs font-medium text-slate-600 dark:text-slate-400 mt-1" data-i18n="stat_projects_label">Completed Projects</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <span class="text-2xl sm:text-4xl font-extrabold text-[#7593ff] stat-counter" data-target="99.8" data-suffix="%">99.8%</span>
+                    <span class="text-[11px] sm:text-xs font-medium text-slate-600 dark:text-slate-400 mt-1" data-i18n="stat_satisfaction_label">Client Satisfaction</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <span class="text-2xl sm:text-4xl font-extrabold text-[#7593ff] stat-counter" data-target="100" data-suffix="%">100%</span>
+                    <span class="text-[11px] sm:text-xs font-medium text-slate-600 dark:text-slate-400 mt-1" data-i18n="stat_code_label">On-Time Delivery</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= ABOUT SECTION ================= -->
+        <section id="about" class="scroll-fade-box w-full max-w-5xl my-10 sm:my-16">
+            <div class="glass-heavy-blur glow-accent-box p-6 sm:p-10 rounded-3xl" id="aboutCard">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 items-center">
+                    
+                    <!-- Profile Picture Frame -->
                     <div class="flex justify-center">
-                        <div class="w-36 h-36 sm:w-48 sm:h-48 rounded-full overflow-hidden border-4 border-[#7593ff]/50 shadow-[0_0_25px_rgba(117,147,255,0.3)] bg-slate-200 dark:bg-slate-800">
-                            <img src="assets/img/profile.JPG" alt="Nugua Profile" class="w-full h-full object-cover">
+                        <div class="relative w-40 h-40 sm:w-52 sm:h-52 rounded-full p-1.5 bg-gradient-to-tr from-[#7593ff] via-[#95ACFF] to-indigo-500 shadow-[0_0_35px_rgba(117,147,255,0.4)]">
+                            <div class="w-full h-full rounded-full overflow-hidden bg-slate-200 dark:bg-slate-800">
+                                <img src="assets/img/profile.JPG" alt="Nugua Profile" class="w-full h-full object-cover">
+                            </div>
                         </div>
                     </div>
+
+                    <!-- Profile Bio & Attributes -->
                     <div class="md:col-span-2 text-center md:text-left">
-                        <h2 class="text-lg sm:text-2xl font-bold text-slate-900 dark:text-slate-100 mb-3 flex items-center justify-center md:justify-start gap-3">
-                            <i class="fa-solid fa-user-gear text-[#7593ff]"></i> Behind the Code
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-[#7593ff]/15 text-[#7593ff] mb-3">
+                            <i class="fa-solid fa-terminal"></i> Full-Stack Engineer
+                        </div>
+
+                        <h2 class="text-xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 mb-3 flex items-center justify-center md:justify-start gap-2.5">
+                            <i class="fa-solid fa-user-gear text-[#7593ff]"></i>
+                            <span data-i18n="about_title">Behind the Code</span>
                         </h2>
-                        <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-xs sm:text-base mb-4 sm:mb-5 min-h-[72px] sm:min-h-[80px]" id="aboutTypingText"></p>
+
+                        <!-- Multilingual Dynamic Typing Bio -->
+                        <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-xs sm:text-base mb-5 min-h-[85px] sm:min-h-[90px]" id="aboutTypingText"></p>
                         
-                        <div class="flex flex-wrap justify-center md:justify-start gap-2">
-                            <span class="interactive-badge px-3.5 py-1.5 rounded-full bg-slate-200/80 dark:bg-slate-800/80 text-[10px] sm:text-[11px] font-semibold text-slate-700 dark:text-[#95ACFF] shadow-sm flex items-center gap-1.5 border border-slate-300 dark:border-white/5">
-                                <i class="fa-solid fa-puzzle-piece"></i> Problem Solver
+                        <!-- Trait Badges -->
+                        <div class="flex flex-wrap justify-center md:justify-start gap-2 mb-5">
+                            <span class="interactive-badge px-3.5 py-1.5 rounded-full bg-slate-200/80 dark:bg-slate-800/80 text-[11px] sm:text-xs font-semibold text-slate-700 dark:text-[#95ACFF] shadow-sm flex items-center gap-1.5 border border-slate-300 dark:border-white/5">
+                                <i class="fa-solid fa-puzzle-piece text-[#7593ff]"></i>
+                                <span data-i18n="about_badge_problem">Problem Solver</span>
                             </span>
-                            <span class="interactive-badge px-3.5 py-1.5 rounded-full bg-slate-200/80 dark:bg-slate-800/80 text-[10px] sm:text-[11px] font-semibold text-slate-700 dark:text-[#95ACFF] shadow-sm flex items-center gap-1.5 border border-slate-300 dark:border-white/5">
-                                <i class="fa-solid fa-bullseye"></i> Detail Oriented
+                            <span class="interactive-badge px-3.5 py-1.5 rounded-full bg-slate-200/80 dark:bg-slate-800/80 text-[11px] sm:text-xs font-semibold text-slate-700 dark:text-[#95ACFF] shadow-sm flex items-center gap-1.5 border border-slate-300 dark:border-white/5">
+                                <i class="fa-solid fa-bullseye text-[#7593ff]"></i>
+                                <span data-i18n="about_badge_detail">Detail Oriented</span>
                             </span>
-                            <span class="interactive-badge px-3.5 py-1.5 rounded-full bg-slate-200/80 dark:bg-slate-800/80 text-[10px] sm:text-[11px] font-semibold text-slate-700 dark:text-[#95ACFF] shadow-sm flex items-center gap-1.5 border border-slate-300 dark:border-white/5">
-                                <i class="fa-solid fa-bolt"></i> Fast Learner
+                            <span class="interactive-badge px-3.5 py-1.5 rounded-full bg-slate-200/80 dark:bg-slate-800/80 text-[11px] sm:text-xs font-semibold text-slate-700 dark:text-[#95ACFF] shadow-sm flex items-center gap-1.5 border border-slate-300 dark:border-white/5">
+                                <i class="fa-solid fa-bolt text-[#7593ff]"></i>
+                                <span data-i18n="about_badge_learner">Fast Learner</span>
                             </span>
+                            <span class="interactive-badge px-3.5 py-1.5 rounded-full bg-slate-200/80 dark:bg-slate-800/80 text-[11px] sm:text-xs font-semibold text-slate-700 dark:text-[#95ACFF] shadow-sm flex items-center gap-1.5 border border-slate-300 dark:border-white/5">
+                                <i class="fa-solid fa-layer-group text-[#7593ff]"></i>
+                                <span data-i18n="about_badge_architecture">Clean Architecture</span>
+                            </span>
+                        </div>
+
+                        <!-- Action Link inside About -->
+                        <div class="flex items-center justify-center md:justify-start gap-3">
+                            <button onclick="openResumeModal()" class="soft-button-primary text-xs sm:text-sm font-semibold px-5 py-2 rounded-xl flex items-center gap-2 cursor-pointer">
+                                <i class="fa-solid fa-file-pdf"></i>
+                                <span data-i18n="resume_title">Curriculum Vitae</span>
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
+        </section>
 
-            <div class="scroll-fade-box text-center mb-6 sm:mb-8">
-                <h3 class="text-base sm:text-xl font-bold text-slate-900 dark:text-slate-100 mb-1">How I Bring Ideas to Life</h3>
-                <p class="text-slate-500 dark:text-slate-400 text-[11px] sm:text-sm">Scroll down or hover on cards to explore.</p>
+        <!-- ================= SERVICES SECTION ================= -->
+        <section id="services" class="scroll-fade-box w-full max-w-5xl my-10 sm:my-16">
+            <div class="text-center mb-8 sm:mb-10">
+                <h2 class="text-xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 mb-2 flex items-center justify-center gap-2.5">
+                    <i class="fa-solid fa-briefcase text-[#7593ff]"></i>
+                    <span data-i18n="services_heading">What I Specialize In</span>
+                </h2>
+                <p class="text-slate-500 dark:text-slate-400 text-xs sm:text-sm max-w-xl mx-auto" data-i18n="services_sub">
+                    Delivering modern end-to-end digital engineering for web and cloud.
+                </p>
             </div>
 
-            <!-- STEP CONTAINER (Rendered via data.js - Ganjil Kiri, Genap Kanan dengan Jalur SVG Silang yang Benar) -->
-            <div class="scroll-fade-box relative w-full py-4 flex flex-col gap-6 sm:gap-8" id="stepContainer">
-                <svg class="absolute inset-0 w-full h-full pointer-events-none z-0" preserveAspectRatio="none" viewBox="0 0 1000 600">
-                    <path class="sm:block" d="M 220,60 C 220,130 780,130 780,200 C 780,270 220,270 220,340 C 220,410 780,410 780,480" fill="none" stroke="rgba(117, 147, 255, 0.3)" stroke-width="4" stroke-dasharray="8 8"/>
-                    <path id="progressSvgPath" d="M 220,60 C 220,130 780,130 780,200 C 780,270 220,270 220,340 C 220,410 780,410 780,480" fill="none" stroke="url(#lineGradient)" stroke-width="5" stroke-dasharray="1400" stroke-dashoffset="1400"/>
-                    <defs>
-                        <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stop-color="#95ACFF" />
-                            <stop offset="100%" stop-color="#7593ff" />
-                        </linearGradient>
-                    </defs>
-                </svg>
+            <!-- Dynamic Services Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6" id="servicesGrid">
+                <!-- Rendered dynamically via assets/js/main.js -->
             </div>
         </section>
 
-        <!-- SKILLS SECTION -->
-        <section id="skills" class="scroll-fade-box w-full max-w-6xl my-12 sm:my-16 text-center">
-            <h2 class="text-lg sm:text-2xl md:text-3xl font-bold text-slate-900 dark:text-slate-100 mb-6 sm:mb-8">Core Technologies</h2>
+        <!-- ================= SKILLS / TECH STACK SECTION ================= -->
+        <section id="skills" class="scroll-fade-box w-full max-w-5xl my-10 sm:my-16 text-center">
+            <h2 class="text-xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 mb-2 flex items-center justify-center gap-2.5">
+                <i class="fa-solid fa-layer-group text-[#7593ff]"></i>
+                <span data-i18n="skills_heading">Core Technologies & Stack</span>
+            </h2>
+            <p class="text-slate-500 dark:text-slate-400 text-xs sm:text-sm max-w-xl mx-auto mb-6" data-i18n="skills_sub">
+                Modern tools and frameworks trusted by high-growth global teams.
+            </p>
             
-            <div class="marquee-container py-6 sm:py-8" id="marqueeContainer">
+            <!-- Infinite Marquee Ticker -->
+            <div class="marquee-container py-4 sm:py-6" id="marqueeContainer">
                 <div class="marquee-track" id="marqueeTrack">
                     <div class="marquee-group" id="marqueeGroup1">
-                        <div class="marquee-card glass-heavy-blur px-4 py-2.5 sm:px-5 sm:py-3.5 rounded-xl sm:rounded-2xl flex items-center gap-3 min-w-[130px] sm:min-w-[150px] shrink-0 shadow-sm justify-center cursor-pointer">
-                            <i class="fa-brands fa-html5 text-orange-500 text-base sm:text-xl"></i>
-                            <span class="font-semibold text-slate-700 dark:text-slate-200 text-xs sm:text-sm">HTML / CSS</span>
+                        <div class="marquee-card glass-heavy-blur px-5 py-3 rounded-2xl flex items-center gap-3 shrink-0 shadow-sm justify-center cursor-pointer border border-white/5">
+                            <i class="fa-brands fa-laravel text-red-500 text-xl"></i>
+                            <span class="font-semibold text-slate-700 dark:text-slate-200 text-xs sm:text-sm">Laravel 11</span>
                         </div>
-                        <div class="marquee-card glass-heavy-blur px-4 py-2.5 sm:px-5 sm:py-3.5 rounded-xl sm:rounded-2xl flex items-center gap-3 min-w-[130px] sm:min-w-[150px] shrink-0 shadow-sm justify-center cursor-pointer">
-                            <i class="fa-brands fa-js text-yellow-500 text-base sm:text-xl"></i>
-                            <span class="font-semibold text-slate-700 dark:text-slate-200 text-xs sm:text-sm">JavaScript</span>
+                        <div class="marquee-card glass-heavy-blur px-5 py-3 rounded-2xl flex items-center gap-3 shrink-0 shadow-sm justify-center cursor-pointer border border-white/5">
+                            <i class="fa-brands fa-php text-indigo-400 text-xl"></i>
+                            <span class="font-semibold text-slate-700 dark:text-slate-200 text-xs sm:text-sm">PHP 8.2</span>
                         </div>
-                        <div class="marquee-card glass-heavy-blur px-4 py-2.5 sm:px-5 sm:py-3.5 rounded-xl sm:rounded-2xl flex items-center gap-3 min-w-[130px] sm:min-w-[150px] shrink-0 shadow-sm justify-center cursor-pointer">
-                            <i class="fa-solid fa-wind text-sky-400 text-base sm:text-xl"></i>
-                            <span class="font-semibold text-slate-700 dark:text-slate-200 text-xs sm:text-sm">Tailwind</span>
+                        <div class="marquee-card glass-heavy-blur px-5 py-3 rounded-2xl flex items-center gap-3 shrink-0 shadow-sm justify-center cursor-pointer border border-white/5">
+                            <i class="fa-brands fa-js text-yellow-500 text-xl"></i>
+                            <span class="font-semibold text-slate-700 dark:text-slate-200 text-xs sm:text-sm">JavaScript ES6+</span>
                         </div>
-                        <div class="marquee-card glass-heavy-blur px-4 py-2.5 sm:px-5 sm:py-3.5 rounded-xl sm:rounded-2xl flex items-center gap-3 min-w-[130px] sm:min-w-[150px] shrink-0 shadow-sm justify-center cursor-pointer">
-                            <i class="fa-brands fa-laravel text-red-500 text-base sm:text-xl"></i>
-                            <span class="font-semibold text-slate-700 dark:text-slate-200 text-xs sm:text-sm">Laravel</span>
+                        <div class="marquee-card glass-heavy-blur px-5 py-3 rounded-2xl flex items-center gap-3 shrink-0 shadow-sm justify-center cursor-pointer border border-white/5">
+                            <i class="fa-solid fa-wind text-sky-400 text-xl"></i>
+                            <span class="font-semibold text-slate-700 dark:text-slate-200 text-xs sm:text-sm">Tailwind CSS</span>
                         </div>
-                        <div class="marquee-card glass-heavy-blur px-4 py-2.5 sm:px-5 sm:py-3.5 rounded-xl sm:rounded-2xl flex items-center gap-3 min-w-[130px] sm:min-w-[150px] shrink-0 shadow-sm justify-center cursor-pointer">
-                            <i class="fa-brands fa-php text-indigo-400 text-base sm:text-xl"></i>
-                            <span class="font-semibold text-slate-700 dark:text-slate-200 text-xs sm:text-sm">PHP</span>
-                        </div>
-                        <div class="marquee-card glass-heavy-blur px-4 py-2.5 sm:px-5 sm:py-3.5 rounded-xl sm:rounded-2xl flex items-center gap-3 min-w-[130px] sm:min-w-[150px] shrink-0 shadow-sm justify-center cursor-pointer">
-                            <i class="fa-solid fa-database text-blue-400 text-base sm:text-xl"></i>
+                        <div class="marquee-card glass-heavy-blur px-5 py-3 rounded-2xl flex items-center gap-3 shrink-0 shadow-sm justify-center cursor-pointer border border-white/5">
+                            <i class="fa-solid fa-database text-blue-400 text-xl"></i>
                             <span class="font-semibold text-slate-700 dark:text-slate-200 text-xs sm:text-sm">MySQL</span>
+                        </div>
+                        <div class="marquee-card glass-heavy-blur px-5 py-3 rounded-2xl flex items-center gap-3 shrink-0 shadow-sm justify-center cursor-pointer border border-white/5">
+                            <i class="fa-solid fa-server text-red-400 text-xl"></i>
+                            <span class="font-semibold text-slate-700 dark:text-slate-200 text-xs sm:text-sm">Redis</span>
+                        </div>
+                        <div class="marquee-card glass-heavy-blur px-5 py-3 rounded-2xl flex items-center gap-3 shrink-0 shadow-sm justify-center cursor-pointer border border-white/5">
+                            <i class="fa-brands fa-git-alt text-orange-500 text-xl"></i>
+                            <span class="font-semibold text-slate-700 dark:text-slate-200 text-xs sm:text-sm">Git & GitHub</span>
+                        </div>
+                        <div class="marquee-card glass-heavy-blur px-5 py-3 rounded-2xl flex items-center gap-3 shrink-0 shadow-sm justify-center cursor-pointer border border-white/5">
+                            <i class="fa-brands fa-docker text-sky-500 text-xl"></i>
+                            <span class="font-semibold text-slate-700 dark:text-slate-200 text-xs sm:text-sm">Docker</span>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- PROJECTS SECTION -->
-        <section id="projects" class="scroll-fade-box w-full max-w-4xl my-12 sm:my-20">
-            <h2 class="text-lg sm:text-2xl md:text-3xl font-bold text-slate-900 dark:text-slate-100 mb-8 text-center flex items-center justify-center gap-3">
-                <i class="fa-solid fa-diagram-project text-[#7593ff]"></i> Featured Projects
-            </h2>
+        <!-- ================= EXPERIENCE / TIMELINE SECTION ================= -->
+        <section id="experience" class="scroll-fade-box w-full max-w-5xl my-10 sm:my-16">
+            <div class="text-center mb-8 sm:mb-10">
+                <h2 class="text-xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 mb-2 flex items-center justify-center gap-2.5">
+                    <i class="fa-solid fa-timeline text-[#7593ff]"></i>
+                    <span data-i18n="exp_heading">Career & Experience</span>
+                </h2>
+                <p class="text-slate-500 dark:text-slate-400 text-xs sm:text-sm max-w-xl mx-auto" data-i18n="exp_sub">
+                    Proven track record delivering reliable digital value across projects.
+                </p>
+            </div>
 
-            <!-- PROJECTS GRID (Centered if 1, Grid if 2+) -->
-            <div id="projectsGrid"></div>
+            <!-- Dynamic Experience List -->
+            <div class="flex flex-col gap-4 sm:gap-5" id="experienceContainer">
+                <!-- Rendered dynamically via assets/js/main.js -->
+            </div>
+        </section>
 
+        <!-- ================= PROCESS / HOW I WORK SECTION ================= -->
+        <section id="process" class="scroll-fade-box w-full max-w-5xl my-10 sm:my-16">
+            <div class="text-center mb-8 sm:mb-10">
+                <h2 class="text-xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 mb-2 flex items-center justify-center gap-2.5">
+                    <i class="fa-solid fa-diagram-project text-[#7593ff]"></i>
+                    <span data-i18n="process_heading">How I Bring Ideas to Life</span>
+                </h2>
+                <p class="text-slate-500 dark:text-slate-400 text-xs sm:text-sm max-w-xl mx-auto" data-i18n="process_sub">
+                    A structured, transparent engineering process focused on speed, quality, and results.
+                </p>
+            </div>
+
+            <!-- Dynamic Steps Container -->
+            <div class="relative w-full py-4 flex flex-col gap-5 sm:gap-6" id="stepContainer">
+                <!-- Rendered dynamically via assets/js/main.js -->
+            </div>
+        </section>
+
+        <!-- ================= FEATURED PROJECTS SECTION ================= -->
+        <section id="projects" class="scroll-fade-box w-full max-w-5xl my-10 sm:my-16">
+            <div class="text-center mb-8 sm:mb-10">
+                <h2 class="text-xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 mb-2 flex items-center justify-center gap-2.5">
+                    <i class="fa-solid fa-cubes text-[#7593ff]"></i>
+                    <span data-i18n="projects_heading">Featured Projects</span>
+                </h2>
+                <p class="text-slate-500 dark:text-slate-400 text-xs sm:text-sm max-w-xl mx-auto" data-i18n="projects_sub">
+                    Curated selection of high-impact commercial applications and systems.
+                </p>
+            </div>
+
+            <!-- Dynamic Featured Projects Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6" id="featuredProjectsGrid">
+                <!-- Rendered dynamically via assets/js/main.js -->
+            </div>
+
+            <!-- Link to All Projects Page -->
             <div class="flex justify-center mt-10">
-                <a href="project.html" class="soft-button-secondary text-slate-700 dark:text-slate-200 font-bold px-8 py-3 rounded-full text-xs sm:text-sm flex items-center gap-3 group transition">
-                    View All Projects <i class="fa-solid fa-arrow-right group-hover:translate-x-1.5 transition-transform text-[#7593ff]"></i>
+                <a href="project.html" class="soft-button-secondary text-slate-700 dark:text-slate-200 font-bold px-8 py-3.5 rounded-full text-xs sm:text-sm flex items-center gap-3 group transition shadow-md hover:border-[#7593ff]">
+                    <span data-i18n="projects_btn_all">View All Projects & Experiments</span>
+                    <i class="fa-solid fa-arrow-right group-hover:translate-x-1.5 transition-transform text-[#7593ff]"></i>
                 </a>
             </div>
         </section>
 
-        <!-- TESTIMONIALS SECTION -->
-        <section id="testimonials" class="scroll-fade-box w-full max-w-4xl my-12 sm:my-16">
-            <h2 class="text-lg sm:text-2xl md:text-3xl font-bold text-slate-900 dark:text-slate-100 mb-8 text-center flex items-center justify-center gap-3">
-                <i class="fa-solid fa-quote-left text-[#7593ff]"></i> What Clients Say
-            </h2>
+        <!-- ================= TESTIMONIALS SECTION ================= -->
+        <section id="testimonials" class="scroll-fade-box w-full max-w-5xl my-10 sm:my-16">
+            <div class="text-center mb-8 sm:mb-10">
+                <h2 class="text-xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 mb-2 flex items-center justify-center gap-2.5">
+                    <i class="fa-solid fa-quote-left text-[#7593ff]"></i>
+                    <span data-i18n="testimonials_heading">What Clients & Partners Say</span>
+                </h2>
+                <p class="text-slate-500 dark:text-slate-400 text-xs sm:text-sm max-w-xl mx-auto" data-i18n="testimonials_sub">
+                    Genuine feedback from clients and collaborators worldwide.
+                </p>
+            </div>
 
-            <!-- TESTIMONIALS GRID (Centered if 1, Grid if 2+) -->
-            <div id="testimonialsGrid"></div>
+            <!-- Dynamic Testimonials Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6" id="testimonialsGrid">
+                <!-- Rendered dynamically via assets/js/main.js -->
+            </div>
         </section>
 
-        <!-- CONTACT SECTION -->
-        <section id="contact" class="scroll-fade-box w-full max-w-2xl my-10 sm:my-16 text-center">
-            <div class="glass-heavy-blur glow-accent-box p-5 sm:p-10 rounded-3xl">
-                <h2 class="text-lg sm:text-2xl md:text-3xl font-bold text-slate-900 dark:text-slate-100 mb-3 flex items-center justify-center gap-3">
-                    <i class="fa-solid fa-envelope-open-text text-[#7593ff]"></i> Let's Work Together
-                </h2>
-                <p class="text-slate-600 dark:text-slate-300 mb-6 text-xs sm:text-base">Have a project in mind or want to discuss digital solutions for your business? Feel free to reach out!</p>
-                <a href="mailto:nugua@example.com" class="soft-button-primary text-white font-medium px-6 py-2.5 sm:px-7 sm:py-3 rounded-full inline-block text-xs sm:text-base">
-                    <i class="fa-solid fa-paper-plane mr-2"></i> Send Me an Email
-                </a>
+        <!-- ================= GITHUB ACTIVITY SECTION ================= -->
+        <section class="scroll-fade-box w-full max-w-5xl my-10 sm:my-16 px-2">
+            <div class="text-center mb-6">
+                <h3 class="text-lg sm:text-2xl font-bold text-slate-900 dark:text-slate-100 mb-2 flex items-center justify-center gap-2.5">
+                    <i class="fa-brands fa-github text-[#7593ff] text-xl"></i>
+                    <span data-i18n="github_heading">GitHub Activity & Open Source</span>
+                </h3>
+                <p class="text-slate-500 dark:text-slate-400 text-xs sm:text-sm" data-i18n="github_sub">
+                    Continuous commits, passion for clean code, and steady open-source contributions.
+                </p>
+            </div>
+
+            <div class="glass-heavy-blur glow-accent-box p-5 sm:p-7 rounded-3xl overflow-x-auto flex flex-col items-center">
+                <img src="https://ghchart.rshah.org/4169E1/nuguaaa" alt="Nugua's GitHub Contribution Activity" class="w-full max-w-3xl h-auto block filter dark:brightness-125 mb-4">
+                
+                <div class="w-full max-w-3xl flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500 dark:text-slate-400">
+                    <a href="https://github.com/nuguaaa" target="_blank" class="text-[#7593ff] hover:underline font-semibold flex items-center gap-1.5">
+                        <span data-i18n="github_view_profile">Visit GitHub Profile</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                    </a>
+
+                    <div class="flex items-center gap-2 text-[11px]">
+                        <span data-i18n="github_less">Less</span>
+                        <div class="flex items-center gap-1">
+                            <span class="w-2.5 h-2.5 rounded-[2px] bg-slate-200 dark:bg-slate-800 border border-slate-300 dark:border-slate-700"></span>
+                            <span class="w-2.5 h-2.5 rounded-[2px] bg-[#7593ff]/30"></span>
+                            <span class="w-2.5 h-2.5 rounded-[2px] bg-[#7593ff]/60"></span>
+                            <span class="w-2.5 h-2.5 rounded-[2px] bg-[#7593ff]"></span>
+                            <span class="w-2.5 h-2.5 rounded-[2px] bg-[#4169E1]"></span>
+                        </div>
+                        <span data-i18n="github_more">More</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= CONTACT SECTION ================= -->
+        <section id="contact" class="scroll-fade-box w-full max-w-3xl my-10 sm:my-16 text-center">
+            <div class="glass-heavy-blur glow-accent-box p-6 sm:p-10 rounded-3xl text-left">
+                <div class="text-center mb-6 sm:mb-8">
+                    <h2 class="text-xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 mb-2 flex items-center justify-center gap-2.5">
+                        <i class="fa-solid fa-envelope-open-text text-[#7593ff]"></i>
+                        <span data-i18n="contact_heading">Let's Build Something Exceptional</span>
+                    </h2>
+                    <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-base max-w-xl mx-auto" data-i18n="contact_sub">
+                        Have an upcoming project, freelance contract, or international developer opportunity? Let's talk.
+                    </p>
+                </div>
+
+                <!-- Interactive Contact Form -->
+                <form id="contactForm" class="space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5" data-i18n="contact_form_name">Your Name</label>
+                            <input type="text" id="contactName" required placeholder="e.g. Alex Morgan" data-i18n-placeholder="contact_form_name_placeholder" class="w-full px-4 py-2.5 text-xs sm:text-sm rounded-xl glass-heavy-blur text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-[#7593ff]/60 border border-slate-300 dark:border-slate-700">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5" data-i18n="contact_form_email">Your Email</label>
+                            <input type="email" id="contactEmail" required placeholder="alex@example.com" data-i18n-placeholder="contact_form_email_placeholder" class="w-full px-4 py-2.5 text-xs sm:text-sm rounded-xl glass-heavy-blur text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-[#7593ff]/60 border border-slate-300 dark:border-slate-700">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5" data-i18n="contact_form_subject">Subject</label>
+                        <input type="text" id="contactSubject" placeholder="Web Development / Collaboration" data-i18n-placeholder="contact_form_subject_placeholder" class="w-full px-4 py-2.5 text-xs sm:text-sm rounded-xl glass-heavy-blur text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-[#7593ff]/60 border border-slate-300 dark:border-slate-700">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5" data-i18n="contact_form_message">Message</label>
+                        <textarea id="contactMessage" rows="4" required placeholder="Tell me about your project requirements, goals, or timeline..." data-i18n-placeholder="contact_form_message_placeholder" class="w-full px-4 py-2.5 text-xs sm:text-sm rounded-xl glass-heavy-blur text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-[#7593ff]/60 border border-slate-300 dark:border-slate-700 resize-none"></textarea>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
+                        <button type="submit" class="soft-button-primary text-white font-semibold px-7 py-3 rounded-xl text-xs sm:text-sm w-full sm:w-auto flex items-center justify-center gap-2 cursor-pointer">
+                            <i class="fa-solid fa-paper-plane"></i>
+                            <span data-i18n="contact_btn_send">Send Message</span>
+                        </button>
+
+                        <div class="flex items-center gap-2 w-full sm:w-auto">
+                            <button type="button" onclick="copyEmailAddress()" class="soft-button-secondary text-slate-700 dark:text-slate-200 font-semibold px-4 py-2.5 rounded-xl text-xs flex-1 sm:flex-initial flex items-center justify-center gap-1.5 cursor-pointer hover:text-[#7593ff]">
+                                <i class="fa-regular fa-copy"></i>
+                                <span data-i18n="contact_btn_copy">Copy Email</span>
+                            </button>
+                            <button type="button" onclick="openWhatsAppChat()" class="soft-button-secondary text-slate-700 dark:text-slate-200 font-semibold px-4 py-2.5 rounded-xl text-xs flex-1 sm:flex-initial flex items-center justify-center gap-1.5 cursor-pointer hover:text-emerald-400">
+                                <i class="fa-brands fa-whatsapp text-emerald-400"></i>
+                                <span data-i18n="contact_btn_whatsapp">WhatsApp</span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </section>
 
     </div>
 
-    <footer class="content-layer w-full text-center py-6 text-slate-500 dark:text-slate-400 text-[11px] sm:text-sm border-t border-slate-300 dark:border-slate-800 mt-6 sm:mt-8 flex flex-col items-center gap-2">
-        <p>&copy; 2026 Nugua. All rights reserved. Built with passion & modern web technologies.</p>
+    <!-- ================= FOOTER ================= -->
+    <footer class="content-layer w-full text-center py-8 text-slate-500 dark:text-slate-400 text-xs sm:text-sm border-t border-slate-300 dark:border-slate-800/80 mt-10 flex flex-col items-center gap-3">
+        <div class="flex items-center gap-2">
+            <img src="assets/img/logo.png" alt="Logo" class="w-6 h-6 object-contain">
+            <span class="font-bold text-slate-700 dark:text-slate-200">Nugua</span>
+            <span>&bull;</span>
+            <span data-i18n="footer_available">Available for international remote contracts & freelance projects.</span>
+        </div>
+        <p data-i18n="footer_rights">&copy; 2026 Nugua. All rights reserved. Built with modern web technologies & passion.</p>
         <div class="flex items-center gap-4 text-slate-500 mt-1">
-            <a href="#" class="hover:text-[#7593ff] transition"><i class="fa-brands fa-github text-base sm:text-lg"></i></a>
-            <a href="#" class="hover:text-[#7593ff] transition"><i class="fa-brands fa-linkedin text-base sm:text-lg"></i></a>
-            <a href="#" class="hover:text-[#7593ff] transition"><i class="fa-brands fa-instagram text-base sm:text-lg"></i></a>
+            <a href="https://github.com/nuguaaa" target="_blank" class="hover:text-[#7593ff] transition text-base" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="https://linkedin.com" target="_blank" class="hover:text-[#7593ff] transition text-base" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="mailto:nugua@example.com" class="hover:text-[#7593ff] transition text-base" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
         </div>
     </footer>
 
-    <!-- PANGGIL FILE DATA.JS TERLEBIH DAHULU -->
-    <script src="data.js"></script>
+    <!-- ================= PROJECT DETAILS MODAL ================= -->
+    <div id="projectModal" class="modal-overlay hidden fixed inset-0 z-50 items-center justify-center p-3 sm:p-6 overflow-y-auto" onclick="if(event.target === this) closeProjectModal()">
+        <div class="modal-content glass-heavy-blur rounded-3xl max-w-2xl w-full p-6 sm:p-8 relative border border-white/10 shadow-2xl my-auto">
+            <button onclick="closeProjectModal()" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-200 flex items-center justify-center hover:bg-[#7593ff] hover:text-white transition cursor-pointer" aria-label="Close Modal">
+                <i class="fa-solid fa-xmark text-sm"></i>
+            </button>
 
-    <script>
-        // SCRIPT RENDER DARI DATA.JS KE HTML
-        document.addEventListener("DOMContentLoaded", () => {
-            // 1. Render Steps (Ganjil di Kiri, Genap di Kanan)
-            const stepContainer = document.getElementById('stepContainer');
-            if (stepContainer && typeof stepsData !== 'undefined') {
-                stepsData.forEach((item, index) => {
-                    const alignmentClass = index % 2 === 0 ? 'justify-start pl-2 sm:pl-0' : 'justify-end pr-2 sm:pr-0';
-                    const stepHTML = `
-                        <div class="w-full flex ${alignmentClass} relative z-10">
-                            <div class="step-card glass-heavy-blur p-4 sm:p-5 rounded-2xl w-[90%] sm:w-[42%] cursor-pointer" data-step="${item.step}" data-threshold="${item.threshold}">
-                                <span class="absolute -top-2.5 -left-2.5 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#7593ff] text-white font-bold flex items-center justify-center text-[11px] sm:text-xs shadow-md">0${item.step}</span>
-                                <div class="flex items-center gap-3 mb-2">
-                                    <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-slate-200 dark:bg-slate-800/80 shadow-sm flex items-center justify-center text-[#7593ff] text-xs sm:text-base">
-                                        <i class="${item.icon}"></i>
-                                    </div>
-                                    <h4 class="font-bold text-slate-900 dark:text-slate-100 text-xs sm:text-base">${item.title}</h4>
-                                </div>
-                                <p class="text-slate-600 dark:text-slate-300 text-[11px] sm:text-xs leading-relaxed">${item.description}</p>
-                            </div>
-                        </div>
-                    `;
-                    stepContainer.insertAdjacentHTML('beforeend', stepHTML);
-                });
-            }
+            <div class="flex items-center gap-3 mb-3">
+                <h3 id="modalTitle" class="text-lg sm:text-2xl font-extrabold text-slate-900 dark:text-slate-100">Project Title</h3>
+                <span id="modalCategoryBadge" class="text-[10px] font-bold px-2.5 py-0.5 rounded-full">Badge</span>
+            </div>
 
-            // 2. Render Projects (Automatic Center if 1 data, Grid if 2+)
-            const projectsGrid = document.getElementById('projectsGrid');
-            if (projectsGrid && typeof futureProjectsData !== 'undefined') {
-                if (futureProjectsData.length === 1) {
-                    projectsGrid.className = "flex justify-center";
-                } else {
-                    projectsGrid.className = "grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6";
-                }
+            <p id="modalFullDesc" class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed mb-5">
+                Full project overview description will appear here.
+            </p>
 
-                futureProjectsData.forEach(project => {
-                    const cardWidthClass = futureProjectsData.length === 1 ? "w-full max-w-md" : "w-full";
-                    
-                    const projectHTML = `
-                        <div class="project-card glass-heavy-blur p-4 sm:p-6 rounded-3xl flex flex-col justify-between ${cardWidthClass}">
-                            <div>
-                                <div class="w-full h-32 sm:h-40 bg-slate-200 dark:bg-slate-800/50 border border-slate-300 dark:border-slate-700 rounded-2xl mb-3 sm:mb-4 overflow-hidden flex items-center justify-center text-slate-400 dark:text-slate-500 text-xs sm:text-sm font-medium gap-2">
-                                    <i class="fa-regular fa-image"></i> ${project.previewText}
-                                </div>
-                                <div class="flex items-center justify-between mb-2">
-                                    <h3 class="text-base sm:text-xl font-bold text-slate-900 dark:text-slate-100">${project.title}</h3>
-                                    <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#7593ff]/20 text-[#7593ff]">${project.category}</span>
-                                </div>
-                                <p class="text-slate-600 dark:text-slate-300 text-[11px] sm:text-sm mb-5">${project.description}</p>
-                            </div>
-                            <button class="soft-button-primary text-white font-semibold text-xs sm:text-sm py-2.5 px-4 rounded-xl w-full flex items-center justify-center gap-2 cursor-pointer">
-                                View Project <i class="fa-solid fa-arrow-right text-xs"></i>
-                            </button>
-                        </div>
-                    `;
-                    projectsGrid.insertAdjacentHTML('beforeend', projectHTML);
-                });
-            }
+            <div class="mb-5">
+                <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2.5" data-i18n="projects_modal_features">Key Highlights & Capabilities</h4>
+                <ul id="modalFeaturesList" class="space-y-2">
+                    <!-- Populated dynamically -->
+                </ul>
+            </div>
 
-            // 3. Render Testimonials (Automatic Center if 1 data, Grid if 2+)
-            const testimonialsGrid = document.getElementById('testimonialsGrid');
-            if (testimonialsGrid && typeof testimonialsData !== 'undefined') {
-                if (testimonialsData.length === 1) {
-                    testimonialsGrid.className = "flex justify-center";
-                } else {
-                    testimonialsGrid.className = "grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6";
-                }
+            <div class="mb-6">
+                <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2.5" data-i18n="projects_modal_tech">Tech Stack</h4>
+                <div id="modalTechsList" class="flex flex-wrap gap-2">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
 
-                testimonialsData.forEach(testi => {
-                    const cardWidthClass = testimonialsData.length === 1 ? "w-full max-w-md" : "w-full";
+            <div class="flex items-center justify-end gap-3 pt-4 border-t border-slate-200 dark:border-slate-800">
+                <button onclick="closeProjectModal()" class="soft-button-secondary text-slate-700 dark:text-slate-200 font-semibold px-4 py-2 rounded-xl text-xs cursor-pointer" data-i18n="projects_modal_close">
+                    Close
+                </button>
+                <a id="modalCodeBtn" href="#" target="_blank" class="soft-button-secondary text-slate-700 dark:text-slate-200 font-semibold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5">
+                    <i class="fa-brands fa-github"></i>
+                    <span data-i18n="projects_btn_code">Source Code</span>
+                </a>
+                <a id="modalLiveBtn" href="#" target="_blank" class="soft-button-primary text-white font-semibold px-5 py-2 rounded-xl text-xs flex items-center gap-1.5">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    <span data-i18n="projects_btn_demo">Live Demo</span>
+                </a>
+            </div>
+        </div>
+    </div>
 
-                    const testiHTML = `
-                        <div class="testimonial-card glass-heavy-blur p-5 sm:p-6 rounded-3xl flex flex-col justify-between ${cardWidthClass}">
-                            <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm italic mb-4">${testi.quote}</p>
-                            <div class="flex items-center gap-3">
-                                <div class="w-9 h-9 rounded-full bg-[#7593ff]/20 text-[#7593ff] font-bold flex items-center justify-center text-xs">
-                                    ${testi.initials}
-                                </div>
-                                <div>
-                                    <h4 class="font-bold text-xs sm:text-sm text-slate-900 dark:text-slate-100">${testi.name}</h4>
-                                    <span class="text-[10px] text-slate-500">${testi.role}</span>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    testimonialsGrid.insertAdjacentHTML('beforeend', testiHTML);
-                });
-            }
-        });
+    <!-- ================= RESUME / CV MODAL ================= -->
+    <div id="resumeModal" class="modal-overlay hidden fixed inset-0 z-50 items-center justify-center p-3 sm:p-6 overflow-y-auto" onclick="if(event.target === this) closeResumeModal()">
+        <div class="modal-content glass-heavy-blur rounded-3xl max-w-3xl w-full p-6 sm:p-9 relative border border-white/10 shadow-2xl my-auto">
+            <button onclick="closeResumeModal()" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-200 flex items-center justify-center hover:bg-[#7593ff] hover:text-white transition cursor-pointer" aria-label="Close Resume">
+                <i class="fa-solid fa-xmark text-sm"></i>
+            </button>
 
-        const themeToggleBtn = document.getElementById('themeToggle');
-        
-        if (localStorage.getItem('color-theme') === 'light') {
-            document.documentElement.classList.remove('dark');
-        } else {
-            document.documentElement.classList.add('dark');
-        }
+            <!-- Resume Header -->
+            <div class="border-b border-slate-200 dark:border-slate-800 pb-5 mb-5">
+                <div class="flex items-center gap-4">
+                    <div class="w-14 h-14 rounded-full overflow-hidden border-2 border-[#7593ff]">
+                        <img src="assets/img/profile.JPG" alt="Nugua" class="w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-slate-100">Nugua</h2>
+                        <p class="text-xs sm:text-sm text-[#7593ff] font-semibold">Full-Stack Web Developer & UI Engineer</p>
+                        <p class="text-[11px] text-slate-500 dark:text-slate-400">nugua@example.com &bull; github.com/nuguaaa &bull; Remote Available</p>
+                    </div>
+                </div>
+            </div>
 
-        themeToggleBtn.addEventListener('click', () => {
-            if (document.documentElement.classList.contains('dark')) {
-                document.documentElement.classList.remove('dark');
-                localStorage.setItem('color-theme', 'light');
-            } else {
-                document.documentElement.classList.add('dark');
-                localStorage.setItem('color-theme', 'dark');
-            }
-        });
+            <!-- Resume Content -->
+            <div class="space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300">
+                <div>
+                    <h3 class="font-bold text-slate-900 dark:text-slate-100 uppercase tracking-wider text-xs mb-1.5 flex items-center gap-2">
+                        <i class="fa-solid fa-user text-[#7593ff]"></i> Professional Summary
+                    </h3>
+                    <p class="leading-relaxed">
+                        Full-Stack Web Developer with 3+ years of experience engineering modern, scalable web solutions. Proficient in Laravel, PHP, JavaScript, Tailwind CSS, RESTful APIs, and database architecture. Proven success building e-commerce systems, SaaS analytics dashboards, and responsive frontends for clients across multiple countries.
+                    </p>
+                </div>
 
-        const glow = document.getElementById('mouseGlow');
-        const stepContainer = document.getElementById('stepContainer');
-        const progressSvgPath = document.getElementById('progressSvgPath');
+                <div>
+                    <h3 class="font-bold text-slate-900 dark:text-slate-100 uppercase tracking-wider text-xs mb-1.5 flex items-center gap-2">
+                        <i class="fa-solid fa-code text-[#7593ff]"></i> Technical Skills
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] sm:text-xs">
+                        <div><strong class="text-slate-800 dark:text-slate-200">Languages:</strong> PHP 8+, JavaScript (ES6+), HTML5, CSS3, SQL</div>
+                        <div><strong class="text-slate-800 dark:text-slate-200">Frameworks:</strong> Laravel 10/11, Tailwind CSS, Alpine.js, Vue.js</div>
+                        <div><strong class="text-slate-800 dark:text-slate-200">Databases:</strong> MySQL, PostgreSQL, Redis, SQLite</div>
+                        <div><strong class="text-slate-800 dark:text-slate-200">Tools:</strong> Git, GitHub, Docker, Postman, Vite, Linux/Nginx</div>
+                    </div>
+                </div>
 
-        let mouseX = 0;
-        let mouseY = 0;
-        let glowX = 0;
-        let glowY = 0;
+                <div>
+                    <h3 class="font-bold text-slate-900 dark:text-slate-100 uppercase tracking-wider text-xs mb-1.5 flex items-center gap-2">
+                        <i class="fa-solid fa-briefcase text-[#7593ff]"></i> Key Experience
+                    </h3>
+                    <ul class="space-y-2 list-disc list-inside">
+                        <li><strong>Senior Freelance Developer (2024 - Present):</strong> Architected full-stack e-commerce and internal tools for international SMBs, delivering 100% on-time milestone execution.</li>
+                        <li><strong>Web Developer (2023 - 2024):</strong> Implemented backend APIs in Laravel and responsive UI layouts in Tailwind CSS, optimizing load speeds by 40%.</li>
+                    </ul>
+                </div>
 
-        window.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-        });
+                <div>
+                    <h3 class="font-bold text-slate-900 dark:text-slate-100 uppercase tracking-wider text-xs mb-1.5 flex items-center gap-2">
+                        <i class="fa-solid fa-language text-[#7593ff]"></i> Languages
+                    </h3>
+                    <p>English (Professional Working), Indonesian (Native), German (Basic/Conversational).</p>
+                </div>
+            </div>
 
-        function updateGlow() {
-            glowX += (mouseX - glowX) * 0.15;
-            glowY += (mouseY - glowY) * 0.15;
+            <!-- Resume Action Buttons -->
+            <div class="flex items-center justify-end gap-3 pt-5 mt-5 border-t border-slate-200 dark:border-slate-800">
+                <button onclick="closeResumeModal()" class="soft-button-secondary text-slate-700 dark:text-slate-200 font-semibold px-4 py-2 rounded-xl text-xs cursor-pointer" data-i18n="resume_close_btn">
+                    Close
+                </button>
+                <button onclick="printResume()" class="soft-button-primary text-white font-semibold px-5 py-2 rounded-xl text-xs flex items-center gap-1.5 cursor-pointer">
+                    <i class="fa-solid fa-print"></i>
+                    <span data-i18n="resume_print_btn">Print / Save PDF</span>
+                </button>
+            </div>
+        </div>
+    </div>
 
-            if (glow) {
-                glow.style.setProperty('--x', `${glowX}px`);
-                glow.style.setProperty('--y', `${glowY}px`);
-            }
+    <!-- ================= FLOATING TOAST NOTIFICATION ================= -->
+    <div id="toastNotification" class="glass-heavy-blur glow-accent-box px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-3 border border-white/10 max-w-sm">
+        <i id="toastIcon" class="fa-solid fa-circle-check text-emerald-400 text-base"></i>
+        <span id="toastMessage" class="text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200">Notification</span>
+    </div>
 
-            requestAnimationFrame(updateGlow);
-        }
+    <!-- ================= BACK TO TOP BUTTON ================= -->
+    <button id="backToTopBtn" class="w-10 h-10 sm:w-11 sm:h-11 rounded-full glass-heavy-blur glow-accent-box flex items-center justify-center text-slate-700 dark:text-slate-200 hover:text-[#7593ff] transition shadow-lg cursor-pointer" title="Back to top" aria-label="Back to top">
+        <i class="fa-solid fa-arrow-up text-xs sm:text-sm"></i>
+    </button>
 
-        requestAnimationFrame(updateGlow);
-
-        window.addEventListener('DOMContentLoaded', () => {
-            const track = document.getElementById('marqueeTrack');
-            const group1 = document.getElementById('marqueeGroup1');
-            
-            if (track && group1) {
-                for (let i = 0; i < 3; i++) {
-                    const clone = group1.cloneNode(true);
-                    clone.setAttribute('aria-hidden', 'true');
-                    track.appendChild(clone);
-                }
-
-                const groupWidth = group1.offsetWidth + 20;
-                track.style.setProperty('--marquee-scroll-width', `-${groupWidth}px`);
-            }
-        });
-
-        const pathLength = progressSvgPath ? progressSvgPath.getTotalLength() : 1400;
-        if (progressSvgPath) {
-            progressSvgPath.style.strokeDasharray = pathLength;
-            progressSvgPath.style.strokeDashoffset = pathLength;
-        }
-
-        const aboutCard = document.getElementById('aboutCard');
-        const aboutTypingText = document.getElementById('aboutTypingText');
-        const aboutMessage = "I am a passionate web developer dedicated to bridging complex technical systems with seamless, user-friendly digital experiences. Whether collaborating with UMKM or scaling business applications, I ensure every line of code serves a purpose.";
-        
-        let isTypingStarted = false;
-        let typingTimeout = null;
-
-        function startTypingEffect() {
-            if (isTypingStarted) return;
-            isTypingStarted = true;
-            
-            let charIndex = 0;
-            aboutTypingText.innerHTML = '';
-            
-            const cursorSpan = document.createElement('span');
-            cursorSpan.className = 'typing-cursor';
-            cursorSpan.style.height = '1em';
-            aboutTypingText.appendChild(cursorSpan);
-
-            function typeChar() {
-                if (charIndex < aboutMessage.length) {
-                    const textNode = document.createTextNode(aboutMessage.charAt(charIndex));
-                    aboutTypingText.insertBefore(textNode, cursorSpan);
-                    charIndex++;
-                    typingTimeout = setTimeout(typeChar, 20);
-                } else {
-                    setTimeout(() => {
-                        cursorSpan.remove();
-                    }, 1000);
-                }
-            }
-            typeChar();
-        }
-
-        const scrollFadeBoxes = document.querySelectorAll('.scroll-fade-box');
-
-        function checkScrollAnimations() {
-            const windowH = window.innerHeight;
-
-            scrollFadeBoxes.forEach((box) => {
-                const rect = box.getBoundingClientRect();
-                
-                if (rect.top < windowH - 80 && rect.bottom > 80) {
-                    box.classList.add('visible');
-                    
-                    if (box.id === 'aboutCard') {
-                        startTypingEffect();
-                    }
-                } else {
-                    box.classList.remove('visible');
-                }
-            });
-
-            if (stepContainer) {
-                const stepCards = document.querySelectorAll('.step-card');
-                const rect = stepContainer.getBoundingClientRect();
-                let totalHeight = stepContainer.offsetHeight;
-                let currentScrollPosition = windowH - rect.top;
-                let scrollProgress = currentScrollPosition / (totalHeight + windowH * 0.1);
-                
-                scrollProgress = Math.max(0, Math.min(1, scrollProgress));
-
-                if (progressSvgPath) {
-                    let drawLength = pathLength * (1 - scrollProgress);
-                    progressSvgPath.style.strokeDashoffset = Math.max(0, drawLength);
-                }
-
-                stepCards.forEach((card) => {
-                    let threshold = parseFloat(card.getAttribute('data-threshold'));
-                    if (scrollProgress >= threshold) {
-                        card.classList.add('active-step');
-                    } else {
-                        card.classList.remove('active-step');
-                    }
-                });
-            }
-        }
-
-        window.addEventListener('DOMContentLoaded', checkScrollAnimations);
-        window.addEventListener('scroll', checkScrollAnimations, { passive: true });
-    </script>
-
+    <!-- ================= JAVASCRIPT MODULES ================= -->
+    <script src="assets/js/translations.js"></script>
+    <script src="assets/js/data.js"></script>
+    <script src="assets/js/main.js"></script>
 </body>
 </html>

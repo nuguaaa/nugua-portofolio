@@ -3,174 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Projects - Nugua Portfolio</title>
+    <meta name="description" content="All Projects & Experiments - Nugua Portfolio. Production applications, web experiments, and open-source contributions.">
+    <meta name="keywords" content="Web Developer Projects, Full Stack Portfolio, Laravel Apps, JavaScript Experiments, Open Source">
+    <meta name="author" content="Nugua">
+
+    <title>All Projects & Experiments — Nugua</title>
+
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#7593ff',
+                        'primary-light': '#95acff',
+                    }
+                }
+            }
         }
     </script>
-    <!-- FontAwesome untuk Icon profesional -->
+
+    <!-- FontAwesome 6 CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        body {
-            background-color: #0b0f17;
-            color: #f1f5f9;
-            overflow-x: hidden;
-            font-family: system-ui, -apple-system, sans-serif;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
 
-        html:not(.dark) body {
-            background-color: #f8fafc;
-            color: #1e293b;
-        }
-        
-        /* Efek Mouse Tracking Glow Background */
-        .mouse-glow {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: none;
-            background: radial-gradient(800px circle at var(--x, 50%) var(--y, 50%), rgba(117, 147, 255, 0.18), rgba(15, 23, 42, 0) 50%);
-            z-index: 1;
-            transition: background 0.2s ease;
-        }
-
-        html:not(.dark) .mouse-glow {
-            background: radial-gradient(800px circle at var(--x, 50%) var(--y, 50%), rgba(117, 147, 255, 0.25), rgba(248, 250, 252, 0) 50%);
-        }
-
-        .content-layer {
-            position: relative;
-            z-index: 10;
-        }
-
-        /* Glassmorphism */
-        .glass-heavy-blur {
-            background: rgba(15, 23, 42, 0.7);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        html:not(.dark) .glass-heavy-blur {
-            background: rgba(255, 255, 255, 0.85);
-            border: 1px solid rgba(226, 232, 240, 0.8);
-            box-shadow: 0 15px 35px rgba(149, 172, 255, 0.12);
-        }
-
-        .soft-button-primary {
-            background: linear-gradient(135deg, #95ACFF 0%, #7593ff 100%);
-            box-shadow: 0 8px 20px rgba(117, 147, 255, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .soft-button-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(117, 147, 255, 0.5);
-        }
-
-        .soft-button-secondary {
-            background: rgba(30, 41, 59, 0.8);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            transition: all 0.3s ease;
-        }
-
-        html:not(.dark) .soft-button-secondary {
-            background: rgba(255, 255, 255, 0.9);
-            box-shadow: 0 8px 20px rgba(149, 172, 255, 0.15);
-            border: 1px solid rgba(226, 232, 240, 1);
-            color: #475569;
-        }
-
-        .soft-button-secondary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(149, 172, 255, 0.25);
-        }
-
-        .contact-pill-btn {
-            background: rgba(30, 41, 59, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05);
-            transition: all 0.3s ease;
-        }
-
-        html:not(.dark) .contact-pill-btn {
-            background: rgba(241, 245, 249, 0.8);
-            border: 1px solid rgba(226, 232, 240, 1);
-        }
-
-        .contact-pill-btn:hover {
-            border-color: rgba(117, 147, 255, 0.5);
-            transform: translateY(-1px);
-        }
-
-        .project-card {
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .project-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 20px 40px rgba(117, 147, 255, 0.3);
-            border-color: rgba(117, 147, 255, 0.8);
-        }
-    </style>
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body class="min-h-screen flex flex-col justify-between p-3 sm:p-6 md:p-10">
+<body class="min-h-screen flex flex-col justify-between p-3 sm:p-6 md:p-8">
 
-    <!-- Elemen Mouse Glow -->
+    <!-- Interactive Mouse Tracking Glow -->
     <div class="mouse-glow" id="mouseGlow"></div>
 
     <div class="content-layer max-w-6xl mx-auto w-full flex flex-col items-center">
         
-        <!-- NAVBAR -->
-        <nav class="glass-heavy-blur rounded-full px-4 sm:px-5 py-2.5 w-full max-w-4xl flex items-center justify-between mb-8 sticky top-3 sm:top-6 z-50">
-            <a href="index.html" class="w-9 h-9 sm:w-11 sm:h-11 overflow-hidden flex items-center justify-center shrink-0 transition-transform hover:scale-105">
-                <img src="assets/img/logo.png" alt="Logo" class="object-cover w-full h-full">
-            </a>
+        <!-- ================= NAVBAR ================= -->
+        <nav class="glass-heavy-blur rounded-full px-4 sm:px-6 py-2.5 w-full max-w-5xl flex items-center justify-between mb-8 sticky top-3 sm:top-5 z-50 shadow-lg">
+            <div class="flex items-center gap-3">
+                <a href="index.html" class="w-9 h-9 sm:w-11 sm:h-11 overflow-hidden flex items-center justify-center shrink-0 transition-transform hover:scale-105" title="Back to Home">
+                    <img src="assets/img/logo.png" alt="Logo" class="object-contain w-full h-full">
+                </a>
+                <a href="index.html" class="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-[#7593ff] transition">
+                    <i class="fa-solid fa-arrow-left text-xs"></i>
+                    <span data-i18n="nav_back_home">Back to Home</span>
+                </a>
+            </div>
             
-            <div class="absolute left-1/2 transform -translate-x-1/2 hidden sm:block">
-                <span class="text-xs sm:text-sm font-extrabold tracking-widest text-slate-900 dark:text-white uppercase">PROJECTS</span>
+            <div class="hidden sm:block">
+                <span class="text-xs font-extrabold tracking-widest text-[#7593ff] uppercase bg-[#7593ff]/15 px-3 py-1 rounded-full border border-[#7593ff]/30" data-i18n="nav_projects_tag">PROJECTS</span>
             </div>
 
-            <div class="flex items-center gap-2">
-                <a href="index.html#contact" class="contact-pill-btn flex items-center gap-2 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold text-[#7593ff] dark:text-[#95ACFF]">
-                    <i class="fa-solid fa-comment-dots text-xs"></i>
-                    <span>Contact Me</span>
-                </a>
+            <div class="flex items-center gap-2 sm:gap-3">
+                <!-- Language Selector Dropdown -->
+                <div class="relative">
+                    <button class="lang-dropdown-btn contact-pill-btn px-2.5 sm:px-3 py-1.5 rounded-full text-xs font-semibold text-slate-700 dark:text-slate-200 flex items-center gap-1.5 cursor-pointer hover:border-[#7593ff]/60 transition" data-target="langMenuProjects" aria-label="Select Language">
+                        <i class="fa-solid fa-globe text-[#7593ff] text-xs"></i>
+                        <span class="current-lang-text font-bold">🇬🇧 EN</span>
+                        <i class="fa-solid fa-chevron-down text-[10px] opacity-70"></i>
+                    </button>
 
-                <button id="themeToggle" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full glass-heavy-blur flex items-center justify-center text-slate-700 dark:text-slate-200 hover:text-[#7593ff] transition shadow-sm cursor-pointer" title="Toggle Theme">
+                    <!-- Dropdown Menu -->
+                    <div id="langMenuProjects" class="dropdown-menu hidden absolute right-0 mt-2 w-44 rounded-2xl glass-heavy-blur p-2 shadow-2xl z-50 border border-white/10">
+                        <button onclick="setLanguage('en')" class="w-full text-left px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-[#7593ff]/15 hover:text-[#7593ff] flex items-center gap-2.5 transition">
+                            <span>🇬🇧</span>
+                            <span>English</span>
+                        </button>
+                        <button onclick="setLanguage('id')" class="w-full text-left px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-[#7593ff]/15 hover:text-[#7593ff] flex items-center gap-2.5 transition">
+                            <span>🇮🇩</span>
+                            <span>Bahasa Indonesia</span>
+                        </button>
+                        <button onclick="setLanguage('de')" class="w-full text-left px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-[#7593ff]/15 hover:text-[#7593ff] flex items-center gap-2.5 transition">
+                            <span>🇩🇪</span>
+                            <span>Deutsch</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Theme Toggle Button -->
+                <button class="theme-toggle-btn w-8 h-8 sm:w-10 sm:h-10 rounded-full glass-heavy-blur flex items-center justify-center text-slate-700 dark:text-slate-200 hover:text-[#7593ff] transition shadow-sm cursor-pointer" title="Toggle Theme" aria-label="Toggle Theme">
                     <i class="fa-solid fa-moon text-xs sm:text-sm hidden dark:block"></i>
                     <i class="fa-solid fa-sun text-xs sm:text-sm dark:hidden"></i>
                 </button>
+
+                <a href="index.html#contact" class="soft-button-primary px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs font-semibold flex items-center gap-1.5">
+                    <i class="fa-solid fa-comment-dots text-xs"></i>
+                    <span data-i18n="nav_contact_btn">Contact Me</span>
+                </a>
             </div>
         </nav>
 
-        <!-- HEADER SECTION -->
-        <header class="text-center max-w-3xl mx-auto my-6">
-            <h1 class="text-2xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight mb-3">
+        <!-- ================= HEADER SECTION ================= -->
+        <header class="text-center max-w-3xl mx-auto my-6 px-2">
+            <h1 class="text-2xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight mb-3" data-i18n="all_projects_title">
                 All Projects & Experiments
             </h1>
-            <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-base leading-relaxed">
-                Koleksi lengkap dari proyek serius, aplikasi komersial, hingga proyek gabut / eksperimen iseng yang saya buat di waktu luang.
+            <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-base leading-relaxed" data-i18n="all_projects_sub">
+                Complete portfolio featuring production applications, scalable architectures, and creative experiments built in my spare time.
             </p>
         </header>
 
-        <!-- GITHUB CONTRIBUTION ACTIVITY -->
-        <section class="w-full max-w-4xl my-6 px-2">
-            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100 mb-4 flex items-center gap-2.5">
-                <i class="fa-brands fa-github text-[#7593ff] text-lg sm:text-xl"></i> My GitHub Contribution Activity
-            </h3>
-            <div class="glass-heavy-blur p-4 sm:p-6 rounded-3xl overflow-x-auto flex flex-col items-center">
+        <!-- ================= GITHUB CONTRIBUTION ACTIVITY ================= -->
+        <section class="w-full max-w-5xl my-6 px-2">
+            <div class="glass-heavy-blur glow-accent-box p-4 sm:p-6 rounded-3xl overflow-x-auto flex flex-col items-center">
+                <div class="w-full max-w-3xl flex items-center justify-between mb-3 px-1">
+                    <h3 class="text-xs sm:text-sm font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+                        <i class="fa-brands fa-github text-[#7593ff] text-base"></i>
+                        <span data-i18n="github_heading">GitHub Activity & Open Source</span>
+                    </h3>
+                    <a href="https://github.com/nuguaaa" target="_blank" class="text-xs text-[#7593ff] hover:underline flex items-center gap-1">
+                        <span data-i18n="github_view_profile">Profile</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                    </a>
+                </div>
+
                 <img src="https://ghchart.rshah.org/4169E1/nuguaaa" alt="Nugua's Github Contribution Chart" class="w-full max-w-3xl h-auto block filter dark:brightness-125 mb-3">
                 
-                <div class="w-full max-w-3xl flex items-center justify-end gap-2 text-[11px] text-slate-500 dark:text-slate-400 mt-2 px-1">
-                    <span>Less</span>
+                <div class="w-full max-w-3xl flex items-center justify-end gap-2 text-[11px] text-slate-500 dark:text-slate-400 px-1">
+                    <span data-i18n="github_less">Less</span>
                     <div class="flex items-center gap-1">
                         <span class="w-2.5 h-2.5 rounded-[2px] bg-slate-200 dark:bg-slate-800 border border-slate-300 dark:border-slate-700"></span>
                         <span class="w-2.5 h-2.5 rounded-[2px] bg-[#7593ff]/30"></span>
@@ -178,186 +128,129 @@
                         <span class="w-2.5 h-2.5 rounded-[2px] bg-[#7593ff]"></span>
                         <span class="w-2.5 h-2.5 rounded-[2px] bg-[#4169E1]"></span>
                     </div>
-                    <span>More</span>
+                    <span data-i18n="github_more">More</span>
                 </div>
             </div>
         </section>
 
-        <!-- GRID ALL PROJECTS & FUN PROJECTS -->
-        <section class="w-full max-w-4xl my-6">
-            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
-                <div>
+        <!-- ================= PROJECTS FILTER & SEARCH ================= -->
+        <section class="w-full max-w-5xl my-6 px-2">
+            <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 mb-6">
+                <div class="flex items-center gap-2">
                     <h2 class="text-base sm:text-xl font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
-                        <i class="fa-solid fa-code-branch text-[#7593ff]"></i> Project List
+                        <i class="fa-solid fa-code-branch text-[#7593ff]"></i>
+                        <span data-i18n="nav_projects">Projects</span>
                     </h2>
-                    <span class="text-xs text-slate-500 dark:text-slate-400">Showing projects</span>
+                    <span id="projectCountIndicator" class="text-xs font-semibold text-slate-500 dark:text-slate-400"></span>
                 </div>
 
-                <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto">
-                    <div class="relative flex-1 sm:flex-initial">
-                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400 text-xs">
+                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                    <!-- Search Input -->
+                    <div class="relative flex-1 sm:w-64">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400 text-xs">
                             <i class="fa-solid fa-search"></i>
                         </span>
-                        <input type="text" id="projectSearch" placeholder="Search projects..." class="w-full sm:w-48 pl-8 pr-3 py-1.5 text-xs rounded-xl glass-heavy-blur text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-[#7593ff]/50 border border-slate-300 dark:border-slate-700">
+                        <input type="text" id="projectSearch" placeholder="Search projects by title, tech..." data-i18n-placeholder="projects_search_placeholder" class="w-full pl-9 pr-3.5 py-2 text-xs rounded-xl glass-heavy-blur text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-[#7593ff]/60 border border-slate-300 dark:border-slate-700">
                     </div>
 
-                    <div class="flex items-center gap-1.5">
-                        <button onclick="filterProjects('all', event)" class="category-btn px-3 py-1.5 rounded-xl text-xs font-semibold soft-button-primary text-white transition cursor-pointer">All</button>
-                        <button onclick="filterProjects('professional', event)" class="category-btn px-3 py-1.5 rounded-xl text-xs font-semibold soft-button-secondary text-slate-700 dark:text-slate-200 transition cursor-pointer">Professional</button>
-                        <button onclick="filterProjects('fun', event)" class="category-btn px-3 py-1.5 rounded-xl text-xs font-semibold soft-button-secondary text-slate-700 dark:text-slate-200 transition cursor-pointer">Fun</button>
+                    <!-- Category Pills -->
+                    <div class="flex flex-wrap items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0">
+                        <button onclick="filterProjects('all', event)" class="category-btn px-3 py-1.5 rounded-xl text-xs font-semibold soft-button-primary text-white transition cursor-pointer" data-i18n="projects_filter_all">All</button>
+                        <button onclick="filterProjects('fullstack', event)" class="category-btn px-3 py-1.5 rounded-xl text-xs font-semibold soft-button-secondary text-slate-700 dark:text-slate-200 transition cursor-pointer" data-i18n="projects_filter_fullstack">Full-Stack</button>
+                        <button onclick="filterProjects('frontend', event)" class="category-btn px-3 py-1.5 rounded-xl text-xs font-semibold soft-button-secondary text-slate-700 dark:text-slate-200 transition cursor-pointer" data-i18n="projects_filter_frontend">Frontend</button>
+                        <button onclick="filterProjects('backend', event)" class="category-btn px-3 py-1.5 rounded-xl text-xs font-semibold soft-button-secondary text-slate-700 dark:text-slate-200 transition cursor-pointer" data-i18n="projects_filter_backend">Backend & API</button>
+                        <button onclick="filterProjects('fun', event)" class="category-btn px-3 py-1.5 rounded-xl text-xs font-semibold soft-button-secondary text-slate-700 dark:text-slate-200 transition cursor-pointer" data-i18n="projects_filter_fun">Experiments</button>
                     </div>
                 </div>
             </div>
 
-            <!-- CONTAINER PROJECT CARDS -->
+            <!-- CONTAINER PROJECT CARDS (Rendered via JS) -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6" id="projectContainer">
-                <!-- Dirender otomatis lewat JS -->
+                <!-- Dynamically rendered by assets/js/main.js -->
             </div>
 
-            <div class="flex justify-center mt-10">
-                <a href="index.html" class="soft-button-secondary text-slate-700 dark:text-slate-200 font-bold px-8 py-3 rounded-full text-xs sm:text-sm flex items-center gap-3 group transition">
-                    <i class="fa-solid fa-arrow-left group-hover:-translate-x-1.5 transition-transform text-[#7593ff]"></i> Back to Home
+            <!-- Back to Home Action Button -->
+            <div class="flex justify-center mt-12 mb-6">
+                <a href="index.html" class="soft-button-secondary text-slate-700 dark:text-slate-200 font-bold px-8 py-3.5 rounded-full text-xs sm:text-sm flex items-center gap-3 group transition shadow-md hover:border-[#7593ff]">
+                    <i class="fa-solid fa-arrow-left group-hover:-translate-x-1.5 transition-transform text-[#7593ff]"></i>
+                    <span data-i18n="nav_back_home">Back to Home</span>
                 </a>
             </div>
         </section>
 
     </div>
 
-    <!-- FOOTER -->
-    <footer class="content-layer w-full text-center py-6 text-slate-500 dark:text-slate-400 text-[11px] sm:text-sm border-t border-slate-300 dark:border-slate-800 mt-8 flex flex-col items-center gap-2">
-        <p>&copy; 2026 Nugua. All rights reserved.</p>
+    <!-- ================= FOOTER ================= -->
+    <footer class="content-layer w-full text-center py-8 text-slate-500 dark:text-slate-400 text-xs sm:text-sm border-t border-slate-300 dark:border-slate-800/80 mt-10 flex flex-col items-center gap-3">
+        <div class="flex items-center gap-2">
+            <img src="assets/img/logo.png" alt="Logo" class="w-6 h-6 object-contain">
+            <span class="font-bold text-slate-700 dark:text-slate-200">Nugua</span>
+            <span>&bull;</span>
+            <span data-i18n="footer_available">Available for international remote contracts & freelance projects.</span>
+        </div>
+        <p data-i18n="footer_rights">&copy; 2026 Nugua. All rights reserved. Built with modern web technologies & passion.</p>
     </footer>
 
-    <!-- 1. PANGGIL FILE DATA PROJECT TERLEBIH DAHULU -->
-    <script src="data.js"></script>
+    <!-- ================= PROJECT DETAILS MODAL ================= -->
+    <div id="projectModal" class="modal-overlay hidden fixed inset-0 z-50 items-center justify-center p-3 sm:p-6 overflow-y-auto" onclick="if(event.target === this) closeProjectModal()">
+        <div class="modal-content glass-heavy-blur rounded-3xl max-w-2xl w-full p-6 sm:p-8 relative border border-white/10 shadow-2xl my-auto">
+            <button onclick="closeProjectModal()" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-200 flex items-center justify-center hover:bg-[#7593ff] hover:text-white transition cursor-pointer" aria-label="Close Modal">
+                <i class="fa-solid fa-xmark text-sm"></i>
+            </button>
 
-    <!-- 2. SCRIPT UTAMA HALAMAN -->
-    <script>
-        const container = document.getElementById('projectContainer');
-        let currentCategory = 'all';
+            <div class="flex items-center gap-3 mb-3">
+                <h3 id="modalTitle" class="text-lg sm:text-2xl font-extrabold text-slate-900 dark:text-slate-100">Project Title</h3>
+                <span id="modalCategoryBadge" class="text-[10px] font-bold px-2.5 py-0.5 rounded-full">Badge</span>
+            </div>
 
-        function renderProjects(filter = 'all', searchQuery = '') {
-            container.innerHTML = '';
+            <p id="modalFullDesc" class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed mb-5">
+                Full project overview description will appear here.
+            </p>
 
-            const filtered = projectsData.filter(project => {
-                const matchesCategory = (filter === 'all' || project.category === filter);
-                const matchesSearch = project.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                                      project.description.toLowerCase().includes(searchQuery.toLowerCase());
-                return matchesCategory && matchesSearch;
-            });
+            <div class="mb-5">
+                <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2.5" data-i18n="projects_modal_features">Key Highlights & Capabilities</h4>
+                <ul id="modalFeaturesList" class="space-y-2">
+                    <!-- Populated dynamically -->
+                </ul>
+            </div>
 
-            if (filtered.length === 0) {
-                container.innerHTML = `
-                    <div class="col-span-full text-center py-10 text-slate-400 text-xs sm:text-sm">
-                        <i class="fa-solid fa-folder-open text-2xl mb-2 block"></i>
-                        Tidak ada project yang ditemukan.
-                    </div>
-                `;
-                return;
-            }
+            <div class="mb-6">
+                <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2.5" data-i18n="projects_modal_tech">Tech Stack</h4>
+                <div id="modalTechsList" class="flex flex-wrap gap-2">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
 
-            filtered.forEach(project => {
-                const borderStyle = project.isDashedBorder ? 'border-dashed border-[#7593ff]/40' : '';
-                
-                // Render tech stack icons secara dinamis jika properti techs tersedia
-                let techsHTML = '';
-                if (project.techs && Array.isArray(project.techs)) {
-                    techsHTML = `<div class="flex items-center gap-2.5 mb-4 text-sm text-slate-600 dark:text-slate-300">`;
-                    project.techs.forEach(tech => {
-                        techsHTML += `<i class="${tech.icon}" title="${tech.name}"></i>`;
-                    });
-                    techsHTML += `</div>`;
-                }
+            <div class="flex items-center justify-end gap-3 pt-4 border-t border-slate-200 dark:border-slate-800">
+                <button onclick="closeProjectModal()" class="soft-button-secondary text-slate-700 dark:text-slate-200 font-semibold px-4 py-2 rounded-xl text-xs cursor-pointer" data-i18n="projects_modal_close">
+                    Close
+                </button>
+                <a id="modalCodeBtn" href="#" target="_blank" class="soft-button-secondary text-slate-700 dark:text-slate-200 font-semibold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5">
+                    <i class="fa-brands fa-github"></i>
+                    <span data-i18n="projects_btn_code">Source Code</span>
+                </a>
+                <a id="modalLiveBtn" href="#" target="_blank" class="soft-button-primary text-white font-semibold px-5 py-2 rounded-xl text-xs flex items-center gap-1.5">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    <span data-i18n="projects_btn_demo">Live Demo</span>
+                </a>
+            </div>
+        </div>
+    </div>
 
-                const cardHTML = `
-                    <div class="project-card glass-heavy-blur p-4 sm:p-6 rounded-3xl flex flex-col justify-between ${borderStyle}" data-category="${project.category}" data-title="${project.title.toLowerCase()}">
-                        <div>
-                            <div class="w-full h-32 sm:h-36 bg-slate-200 dark:bg-slate-800/50 border border-slate-300 dark:border-slate-700 rounded-2xl mb-3 sm:mb-4 overflow-hidden flex items-center justify-center text-slate-400 dark:text-slate-500 text-xs sm:text-sm font-medium gap-2">
-                                <i class="${project.previewIcon}"></i> ${project.previewLabel}
-                            </div>
-                            <div class="flex items-center justify-between mb-2">
-                                <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100">${project.title}</h3>
-                                <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full ${project.badgeColorClass}">${project.badgeText}</span>
-                            </div>
-                            <p class="text-slate-600 dark:text-slate-300 text-[11px] sm:text-sm mb-3">${project.description}</p>
-                            ${techsHTML}
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <a href="${project.githubUrl}" target="_blank" class="soft-button-secondary text-slate-700 dark:text-slate-200 font-semibold text-xs py-2 px-3 rounded-xl flex-1 text-center">
-                                <i class="fa-brands fa-github mr-1"></i> Code
-                            </a>
-                            <a href="${project.liveUrl}" target="_blank" class="soft-button-primary text-white font-semibold text-xs py-2 px-3 rounded-xl flex-1 text-center">
-                                <i class="fa-solid fa-external-link-alt mr-1"></i> Live Demo
-                            </a>
-                        </div>
-                    </div>
-                `;
-                container.innerHTML += cardHTML;
-            });
-        }
+    <!-- ================= FLOATING TOAST NOTIFICATION ================= -->
+    <div id="toastNotification" class="glass-heavy-blur glow-accent-box px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-3 border border-white/10 max-w-sm">
+        <i id="toastIcon" class="fa-solid fa-circle-check text-emerald-400 text-base"></i>
+        <span id="toastMessage" class="text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200">Notification</span>
+    </div>
 
-        function filterProjects(category, event) {
-            currentCategory = category;
-            
-            const buttons = document.querySelectorAll('.category-btn');
-            buttons.forEach(btn => {
-                btn.classList.remove('soft-button-primary', 'text-white');
-                btn.classList.add('soft-button-secondary', 'text-slate-700', 'dark:text-slate-200');
-            });
-            
-            if (event && event.currentTarget) {
-                event.currentTarget.classList.remove('soft-button-secondary', 'text-slate-700', 'dark:text-slate-200');
-                event.currentTarget.classList.add('soft-button-primary', 'text-white');
-            }
+    <!-- ================= BACK TO TOP BUTTON ================= -->
+    <button id="backToTopBtn" class="w-10 h-10 sm:w-11 sm:h-11 rounded-full glass-heavy-blur glow-accent-box flex items-center justify-center text-slate-700 dark:text-slate-200 hover:text-[#7593ff] transition shadow-lg cursor-pointer" title="Back to top" aria-label="Back to top">
+        <i class="fa-solid fa-arrow-up text-xs sm:text-sm"></i>
+    </button>
 
-            const query = document.getElementById('projectSearch').value;
-            renderProjects(currentCategory, query);
-        }
-
-        const searchInput = document.getElementById('projectSearch');
-        searchInput.addEventListener('input', (e) => {
-            renderProjects(currentCategory, e.target.value);
-        });
-
-        // Load awal saat halaman dibuka
-        renderProjects();
-
-        // Theme Toggle & Glow Script
-        const themeToggleBtn = document.getElementById('themeToggle');
-        if (localStorage.getItem('color-theme') === 'light') {
-            document.documentElement.classList.remove('dark');
-        } else {
-            document.documentElement.classList.add('dark');
-        }
-
-        themeToggleBtn.addEventListener('click', () => {
-            if (document.documentElement.classList.contains('dark')) {
-                document.documentElement.classList.remove('dark');
-                localStorage.setItem('color-theme', 'light');
-            } else {
-                document.documentElement.classList.add('dark');
-                localStorage.setItem('color-theme', 'dark');
-            }
-        });
-
-        const glow = document.getElementById('mouseGlow');
-        let mouseX = 0, mouseY = 0, glowX = 0, glowY = 0;
-
-        window.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-        });
-
-        function updateGlow() {
-            glowX += (mouseX - glowX) * 0.15;
-            glowY += (mouseY - glowY) * 0.15;
-            if (glow) {
-                glow.style.setProperty('--x', `${glowX}px`);
-                glow.style.setProperty('--y', `${glowY}px`);
-            }
-            requestAnimationFrame(updateGlow);
-        }
-        requestAnimationFrame(updateGlow);
-    </script>
+    <!-- ================= JAVASCRIPT MODULES ================= -->
+    <script src="assets/js/translations.js"></script>
+    <script src="assets/js/data.js"></script>
+    <script src="assets/js/main.js"></script>
 </body>
 </html>
